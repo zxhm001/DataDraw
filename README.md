@@ -16,28 +16,28 @@
 
 ## 部署
 
-1. Clone本项目
+### 1. Clone本项目
 
 ```
 git clone https://gitee.com/zxhm/DataDraw.git
 cd DataDraw
 ```
 
-2. 使用Composer安装扩展包
+### 2. 使用Composer安装扩展包
 
 ```
 composer install
 ```
 
-3. 配置MySQL
+### 3. 配置MySQL
 
 将根目录下的mysql.sql到入到你的数据库，编辑application/database_sample.php文件，填写数据库信息，并重命名为database.php
 
-4. 目录权限
+### 4. 目录权限
 
 runtime目录需要写入权限，如果你使用本地存储，public 目录也需要有写入权限
 
-5. URL重写
+### 5. URL重写
 
 对于Apache服务器，请确保
 - httpd.conf配置文件中加载了mod_rewrite.so模块
@@ -66,7 +66,7 @@ location /youdomain/ {
 }
 ```
 
-6. 后续操作
+### 6. 后续操作
 
 到此步时，系统已基本可以正常运行，但还需要进行一些后续操作.
 
