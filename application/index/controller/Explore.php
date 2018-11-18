@@ -29,6 +29,11 @@ class Explore extends Controller{
 	public function S(){
 		$this->visitorObj = new User(cookie('user_id'),cookie('login_key'));
 		$keyWords=input("param.key");
+		$encode = mb_detect_encoding($keyWords, array("ASCII","UTF-8","GB2312","GBK","BIG5")); 
+		if($encode != "UTF-8")
+		{
+			$keyWords= iconv($encode,"UTF-8",$keyWords);
+		}
 		if(empty($keyWords)){
 			$this->redirect('/Explore/Search',302);
 		}

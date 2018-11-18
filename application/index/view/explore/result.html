@@ -58,7 +58,7 @@
                     <script src="/static/js/material.js"></script>
                     <script > 
                     $.material.init();
-                    document.onkeydown=function(){
+                    document.onkeydown=function(event){
                              if (event.keyCode == 13){
                                 keyWords = $("input").val();
                                 if(keyWords ==""){
