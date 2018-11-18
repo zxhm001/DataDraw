@@ -172,7 +172,7 @@ INSERT INTO `sd_options` (`id`, `option_name`, `option_value`, `option_type`) VA
 (6, 'siteKeywords', '流程图，在线图表', 'basic'),
 (7, 'siteDes', '数据绘', 'basic'),
 (8, 'siteTitle', '在线流程图', 'basic'),
-(9, 'fromName', 'Cloudreve', 'mail'),
+(9, 'fromName', 'DataDraw', 'mail'),
 (10, 'fromAdress', 'no-reply@acg.blue', 'mail'),
 (11, 'smtpHost', 'smtp.mxhichina.com', 'mail'),
 (12, 'smtpPort', '25', 'mail'),
@@ -300,7 +300,7 @@ CREATE TABLE `sd_users` (
 --
 
 INSERT INTO `sd_users` (`id`, `user_email`, `user_nick`, `user_pass`, `user_date`, `user_status`, `user_group`, `group_primary`, `user_activation_key`, `used_storage`, `two_step`, `delay_time`, `avatar`, `profile`, `webdav_key`) VALUES
-(1, 'admin@cloudreve.org', 'Admin', 'd8446059f8846a2c111a7f53515665fb', '2018-01-30 02:13:34', 0, 1, 0, 'n', 0, '0', 0, 'default', 1, 'd8446059f8846a2c111a7f53515665fb');
+(1, 'admin@datadraw.net', 'Admin', 'd8446059f8846a2c111a7f53515665fb', '2018-01-30 02:13:34', 0, 1, 0, 'n', 0, '0', 0, 'default', 1, 'd8446059f8846a2c111a7f53515665fb');
 CREATE TABLE `sd_download` (
   `id` int(11) NOT NULL,
   `pid` text NOT NULL,

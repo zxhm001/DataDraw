@@ -63,7 +63,7 @@ Actions.prototype.init = function()
 			window.openFile = null;
 		});
 	}).isEnabled = isGraphEnabled;
-	this.addAction('saveAndExit',function(){ui.saveAndExit(false); }, null, null, Editor.ctrlKey + '+Alt+S').isEnabled = isGraphEnabled;
+	this.addAction('saveAndExit',function(){ui.saveAndExit(false); }, null, null).isEnabled = isGraphEnabled;
 	this.addAction('save', function() { ui.saveFile(false); }, null, null, Editor.ctrlKey + '+S').isEnabled = isGraphEnabled;
 	this.addAction('saveAs...', function() { ui.saveFile(true); }, null, null, Editor.ctrlKey + '+Shift+S').isEnabled = isGraphEnabled;
 	this.addAction('export...', function() { ui.showDialog(new ExportDialog(ui).container, 300, 230, true, true); });
