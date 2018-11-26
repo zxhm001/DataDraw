@@ -1,16 +1,7 @@
 <?php
-namespace MxGraph\IO;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\IO\mxCodecRegistry;
-use MxGraph\IO\mxObjectCodec;
-use MxGraph\IO\mxCellCodec;
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxLog;
-use MxGraph\Model\mxCellPath;
-
 class mxCodec
 {
 	
@@ -148,8 +139,14 @@ class mxCodec
 			$this->elements = array();
 			$this->addElement($this->document->documentElement);
 		}
-	
-		return $this->elements[$id];
+		if(count($this->elements) > 0)
+		{
+			return $this->elements[$id];
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 	/**
@@ -163,7 +160,7 @@ class mxCodec
 		{
 			$id = $node->getAttribute("id");
 			
-			if ($id != null && $this->elements[$id] == null)
+			if ($id != null && count($this->elements) > 0 &&$this->elements[$id] == null)
 			{
 				$this->elements[$id] = $node;
 			}

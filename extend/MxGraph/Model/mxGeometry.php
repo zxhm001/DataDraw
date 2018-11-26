@@ -1,11 +1,7 @@
 <?php
-namespace MxGraph\Model;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxRectangle; 
-
 class mxGeometry extends mxRectangle
 {
 
@@ -86,7 +82,7 @@ class mxGeometry extends mxRectangle
 	 */
 	function __construct($x=0, $y=0, $width=0, $height=0)
 	{
-		parent::mxRectangle($x, $y, $width, $height);
+		parent::__construct($x, $y, $width, $height);
 	}
 
 	/**

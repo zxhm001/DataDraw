@@ -1,13 +1,7 @@
 <?php
-namespace MxGraph\Canvas;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxConstants;
-use MxGraph\Util\mxPoint;
-
 class mxGdCanvas
 {
 	/** 

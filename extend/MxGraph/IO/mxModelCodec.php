@@ -1,12 +1,7 @@
 <?php
-namespace MxGraph\IO;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\IO\mxObjectCodec;
-use MxGraph\Model\mxGraphModel;
-
 class mxModelCodec extends mxObjectCodec
 {
 

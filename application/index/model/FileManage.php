@@ -302,6 +302,11 @@ class FileManage extends Model{
 		return $this->adapter->Preview($isAdmin);
 	}
 
+	public function PreviewXmlHandler()
+	{
+		return $this->adapter->PreviewXml();
+	}
+
 	/**
 	 * 获取图像缩略图
 	 *

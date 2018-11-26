@@ -1,12 +1,7 @@
 <?php
-namespace MxGraph\IO;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\IO\mxCodecRegistry;
-use MxGraph\IO\mxObjectCodec;
-
 class mxCellCodec extends mxObjectCodec
 {
 
@@ -50,7 +45,7 @@ class mxCellCodec extends mxObjectCodec
 	 */
 	function __construct($template)
 	{
-		parent::mxObjectCodec($template, array("children", "edges", "states",
+		parent::__construct($template, array("children", "edges", "states",
 			"overlay", "mxTransient"), array("parent",
 			"source", "target"));
 	}

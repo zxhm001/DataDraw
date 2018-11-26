@@ -824,7 +824,7 @@ function(e) {
                     actions: "操作",
                     date: "日期",
                     selection: "选择",
-                    no_files_in_folder: "此文件夹没有文件",
+                    no_files_in_folder: "此文件夹没有图表",
                     no_folders_in_folder: "此文件夹不包含子文件夹",
                     select_this: "选择此文件",
                     go_back: "后退",

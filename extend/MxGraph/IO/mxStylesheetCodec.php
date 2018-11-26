@@ -1,14 +1,7 @@
 <?php
-namespace MxGraph\IO;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\IO\mxObjectCodec;
-use MxGraph\IO\mxCodecRegistry;
-use MxGraph\Util\mxUtils;
-use MxGraph\View\mxStylesheet;
-
 class mxStylesheetCodec extends mxObjectCodec
 {
 
@@ -36,9 +29,9 @@ class mxStylesheetCodec extends mxObjectCodec
 	 * references.
 	 * mapping - Optional mapping from field- to attributenames.
 	 */
-	function mxStylesheetCodec($template)
+	function __construct($template)
 	{
-		parent::mxObjectCodec($template);
+		parent::__construct($template);
 	}
 	
 	/**

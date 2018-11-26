@@ -1,12 +1,7 @@
 <?php
-namespace MxGraph\Canvas;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxConstants; 
-
 class mxHtmlCanvas extends mxGdCanvas
 {
 

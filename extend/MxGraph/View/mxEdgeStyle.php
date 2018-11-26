@@ -1,14 +1,7 @@
 <?php
-namespace MxGraph\View;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxConstants;
-use MxGraph\Util\mxPoint;
-use MxGraph\View\mxCellState;
-
 interface mxEdgeStyleFunction
 {
 

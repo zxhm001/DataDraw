@@ -359,7 +359,7 @@ var AboutDialog = function(editorUi)
 
 	// mxUtils.br(div);
 	// var link = document.createElement('a');
-	// link.setAttribute('href', 'http://www.myshuju.net/');
+	// link.setAttribute('href', 'https://www.myshuju.net/');
 	// link.setAttribute('target', '_blank');
 	// mxUtils.write(link, '数字绘');
 	// div.appendChild(link);

@@ -1,13 +1,7 @@
 <?php
-namespace MxGraph\Util;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxConstants;
-use MxGraph\Util\mxRectangle;
-use MxGraph\Util\mxPoint;
-
 class mxUtils
 {
 	

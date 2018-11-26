@@ -5,6 +5,7 @@ use think\Model;
 use think\Db;
 
 use \app\index\model\Option;
+use \app\index\model\Mx_Graph;
 
 /**
  * 本地策略文件管理适配器
@@ -73,7 +74,13 @@ class LocalAdapter extends Model{
 				$this->outputWithLimit($speedLimit);
 			}
 		}
-    }
+	}
+	
+	public function PreviewXml()
+	{
+		$filePath = ROOT_PATH . 'public/uploads/' . $this->fileModel["pre_name"];
+		Mx_Graph::ConvertToImage($filePath);
+	}
 
     /**
      * 使用Sendfile模式发送文件数据

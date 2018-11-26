@@ -1,13 +1,7 @@
 <?php
-namespace MxGraph\Reader;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Canvas\mxGdCanvas;
-use MxGraph\Util\mxUtils;
-use MxGraph\View\mxCellState;
-use MxGraph\Util\mxPoint;
 
 class mxGraphViewImageReader
 {
@@ -67,7 +61,7 @@ class mxGraphViewImageReader
 	 *
 	 * Constructs a new image graph view reader.
 	 */
-	function __construct($background = null, $width = 300, $height = 400, $x = 0, $y = 0, $border = 0)
+	function __construct($background = null, $border = 0)
 	{
 		$this->parser = xml_parser_create();
 		
@@ -77,10 +71,6 @@ class mxGraphViewImageReader
 			
 		$this->background = $background;
 		$this->border = $border;
-		// $c_width = $x + $width + $border;
-		// $c_heigh = $y + $height + $border;
-		// $this->canvas = new mxGdCanvas($c_width, $c_heigh, $this->scale, $background);
-		return $this;
 	}
 
 	/**
@@ -281,6 +271,7 @@ class mxGraphViewImageReader
 		$viewReader = new mxGraphViewImageReader($background);
 		$viewReader->read($string);
 		$image = $viewReader->canvas->getImage();
+		
 		return $image;	
 	}
 

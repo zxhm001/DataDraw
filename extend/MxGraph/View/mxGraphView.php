@@ -1,19 +1,7 @@
 <?php
-namespace MxGraph\View;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxRectangle;
-use MxGraph\Util\mxPoint;
-use MxGraph\Util\mxEventSource;
-use MxGraph\Util\mxConstants;
-use MxGraph\Util\mxUtils;
-use MXGraph\View\mxStyleRegistry;
-use MxGraph\View\mxCellState;
-use MxGraph\View\mxPerimeterFunction;
-use MxGraph\View\mxEdgeStyleFunction;
-
 class mxGraphView extends mxEventSource
 {
 

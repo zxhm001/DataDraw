@@ -117,6 +117,13 @@ class Share extends Controller{
 			$this->error($previewHandler[1],404,$this->siteOptions);
 		}
 	}
+
+	public function PreviewXml()
+	{
+		$shareId = input('param.key');
+		$shareObj = new ShareHandler($shareId,false);
+		$previewHandler = $shareObj->PreviewXml($this->userObj);
+	}
 	
 	public function ListFile(){
 		$shareId = input('param.key');

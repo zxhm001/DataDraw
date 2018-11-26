@@ -1,16 +1,7 @@
 <?php
-namespace MxGraph\View;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxEvent;
-use MxGraph\Util\mxConstants;
-use MxGraph\Util\mxUtils;
-use MxGraph\Model\mxGeometry;
-use MxGraph\Model\mxGraphModel;
-use MxGraph\View\mxStylesheet;
-use MxGraph\View\mxGraphView;
 
 class mxGraph
 {

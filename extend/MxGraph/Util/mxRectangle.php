@@ -1,11 +1,7 @@
 <?php
-namespace MxGraph\Util;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxPoint;
-
 class mxRectangle extends mxPoint
 {
 

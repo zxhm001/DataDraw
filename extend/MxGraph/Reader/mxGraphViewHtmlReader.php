@@ -1,11 +1,7 @@
 <?php
-namespace MxGraph\Reader;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Canvas\mxHtmlCanvas;
-use MxGraph\Canvas\mxGraphViewImageReader;
 
 class mxGraphViewHtmlReader extends mxGraphViewImageReader
 {

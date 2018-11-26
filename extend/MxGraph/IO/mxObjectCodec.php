@@ -1,13 +1,7 @@
 <?php
-namespace MxGraph\IO;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\IO\mxCodecRegistry;
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxLog;
-
 class mxObjectCodec
 {
 	

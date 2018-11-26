@@ -1,11 +1,7 @@
 <?php
-namespace MxGraph\Model;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxUtils;
-
 class mxCell
 {
 

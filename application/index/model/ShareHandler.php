@@ -164,6 +164,22 @@ class ShareHandler extends Model{
 		return $fileObj->PreviewHandler();
 	}
 
+	public function PreviewXml($user)
+	{
+		$checkStatus = $this->checkSession($user);
+		if(!$checkStatus[0]){
+			return [$checkStatus[0],$checkStatus[1]];
+		}
+		$reqPath = Db::name('files')->where('id',$this->shareData["source_name"])->find();
+		if($reqPath["dir"] == "/"){
+			$reqPath["dir"] = $reqPath["dir"].$reqPath["orign_name"];
+		}else{
+			$reqPath["dir"] = $reqPath["dir"]."/".$reqPath["orign_name"];
+		}
+		$fileObj = new FileManage($reqPath["dir"],$this->shareData["owner"]);
+		return $fileObj->PreviewXmlHandler();
+	}
+
 	public function PreviewFolder($user,$path,$folder=false){
 		$checkStatus = $this->checkSession($user);
 		if(!$checkStatus[0]){

@@ -1,17 +1,7 @@
 <?php
-namespace MxGraph\Model;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxUtils;
-use MxGraph\Util\mxEvent;
-use MxGraph\Util\mxEventObject;
-use MxGraph\Util\mxEventSource;
-use MxGraph\Model\mxCell;
-use MxGraph\Model\mxCellPath;
-
-
 class mxGraphModel extends mxEventSource
 {
 	

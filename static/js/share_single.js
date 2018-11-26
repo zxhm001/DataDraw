@@ -116,8 +116,23 @@
                 var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
                 gallery.init();
             };
+            if(/\.(xml|XML)$/.test(shareInfo.fileName))
+            {
+                $.getScript("/static/js/photoswipe.min.js").done(function() {
+                    $.getScript("/static/js/photoswipe-ui-default.js").done(function() {
+                        $("#previewButton").click(function() {
+                            if (shareInfo.allowPreview) {
+                                openPhotoSwipe("/Share/PreviewXml/" + shareInfo.shareId, 800, 600);
+                            } else {
+                                toastr["error"]("请先登录")
+                            }
+                        })
 
-            if (/\.(gif|jpg|jpeg|png|svg|SVG|GIF|JPG|PNG)$/.test(shareInfo.fileName)) {
+                    })
+
+                })
+            }
+            else if (/\.(gif|jpg|jpeg|png|svg|SVG|GIF|JPG|PNG)$/.test(shareInfo.fileName)) {
                 $.getScript("/static/js/photoswipe.min.js").done(function() {
                     $.getScript("/static/js/photoswipe-ui-default.js").done(function() {
                         $("#previewButton").click(function() {

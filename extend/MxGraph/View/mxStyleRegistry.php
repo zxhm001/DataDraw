@@ -1,13 +1,7 @@
 <?php
-namespace MxGraph\View;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
-
-use MxGraph\Util\mxConstants;
-use MxGraph\View\mxPerimeter;
-use MxGraph\View\mxEdgeStyle;
-
 class mxStyleRegistry
 {
 

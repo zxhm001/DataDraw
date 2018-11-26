@@ -1,5 +1,4 @@
 <?php
-namespace MxGraph\Util;
 /**
  * Copyright (c) 2006-2013, Gaudenz Alder
  */
