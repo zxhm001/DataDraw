@@ -26,6 +26,36 @@ class Graph extends Controller{
 			exit();
 		}
     }
+
+    public function StoreImage()
+    {
+        $reqPath = json_decode(file_get_contents("php://input"),true)['item'];
+        $imageStr = json_decode(file_get_contents("php://input"),true)['image'];
+        $fileObj = new FileManage($reqPath,$this->userObj->uid);
+        $fileID = $fileObj->fileData['id'];
+        $image = Db::name('images')->where('file_id',$fileID)->find();
+        if($image==null)
+        {
+            $jsondata = [
+                'file_id'=>$fileID,
+                'image'=>$imageStr
+            ];
+            if(Db::name('images')->insert($jsondata))
+            {
+                return [true,"上传成功"];
+            }
+            else
+            {
+                return [false,"上传失败"];
+            }
+        }
+        else
+        {
+            $result = Db::name('images')->where('file_id',$fileID)->setField('image',$imageStr);
+            return [true,"上传成功"];
+        }
+        
+    }
     
     public function Export(){
         $format = $_POST["format"];

@@ -3591,6 +3591,7 @@ EditorUi.prototype.save = function(name)
 			this.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile')));
 			that.exit = false;
 		}
+		this.uploadImage(name);
 	}
 };
 
@@ -3724,6 +3725,74 @@ EditorUi.prototype.exportImage = function(filename,scale, background, border, fo
 		this.handleError(e);
 	}
 };
+
+
+/**
+ * 上传图像
+ * 因为服务器端转图像问题很多，暂时用上传解决
+ */
+EditorUi.prototype.uploadImage = function(filename)
+{
+	try
+	{
+		this.exportToCanvas(mxUtils.bind(this, function(canvas)
+		{
+			try
+			{
+				this.uploadCanvas(filename,canvas, 'png');
+			}
+			catch (e)
+			{
+			}
+		}), null, null, '#ffffff', null, null, true, 1, true,
+			false, null, null, 5, true);
+	}
+	catch (e)
+	{
+		this.handleError(e);
+	}
+}
+
+EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
+{
+	var image = this.createImageDataUri(canvas, format);
+	var path = "/";
+	var paths = DIRECTORY.split(",");
+	for (let index = 0; index < paths.length; index++) {
+		path += paths[index];
+	}
+	if(path != "/")
+	{
+		path +=  "/" + filename;
+	}
+	else
+	{
+		path +=  filename;
+	}
+	var data = {image: image,item: path}
+	var that = this;
+	$.ajax({
+		type: 'POST', 
+		url: window.STORE_IMG_URL,
+		data: JSON.stringify(data), 
+		contentType: 'application/json;charset=utf-8',
+		dataType:'json',
+		success: function(response){ 
+			if(response.result.success)
+			{
+				console.log("创建图像成功");
+			}
+			else
+			{
+				console.error("创建图像失败");
+			}
+		} ,
+		error:function(e)
+		{
+			console.error("创建图像失败");
+		}
+	});
+}
 
 /**
  * 
@@ -4042,6 +4111,56 @@ EditorUi.prototype.convertImages = function(svgRoot, callback, imageCache, conve
 	if (counter == 0)
 	{
 		callback(svgRoot);
+	}
+};
+
+EditorUi.prototype.convertImageToDataUri = function(url, callback)
+{
+	if (/(\.svg)$/i.test(url))
+	{
+		mxUtils.get(url, mxUtils.bind(this, function(req)
+		{
+			callback(this.createSvgDataUri(req.getText()));
+		}),
+		function()
+		{
+			callback(this.svgBrokenImage.src);
+		});
+	}
+	else
+	{
+		var img = new Image();
+		var self = this;
+		
+		if (this.crossOriginImages)
+		{
+			img.crossOrigin = 'anonymous';
+		}
+		
+		img.onload = function()
+		{
+			var canvas = document.createElement('canvas');
+			var ctx = canvas.getContext('2d');
+			canvas.height = img.height;
+			canvas.width = img.width;
+			ctx.drawImage(img, 0, 0);
+			
+			try
+			{
+				callback(canvas.toDataURL());
+			}
+			catch (e)
+			{
+				callback(self.svgBrokenImage.src);
+			}
+		};
+		
+		img.onerror = function()
+		{
+			callback(self.svgBrokenImage.src);
+		};
+		
+		img.src = url;
 	}
 };
 

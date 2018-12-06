@@ -75,12 +75,6 @@ class LocalAdapter extends Model{
 			}
 		}
 	}
-	
-	public function PreviewXml()
-	{
-		$filePath = ROOT_PATH . 'public/uploads/' . $this->fileModel["pre_name"];
-		Mx_Graph::ConvertToImage($filePath);
-	}
 
     /**
      * 使用Sendfile模式发送文件数据

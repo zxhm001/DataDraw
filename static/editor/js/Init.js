@@ -10,6 +10,7 @@ window.EXPORT_URL = window.EXPORT_URL || '/Graph/Export';
 window.EDIT_URL = window.EDIT_URL || '/File/Edit';
 window.CONTENT_URL = window.CONTENT_URL||'/File/Content';
 window.SAVE_URL = window.SAVE_URL || '/Upload';
+window.STORE_IMG_URL = window.STORE_IMG_URL || '/Graph/StoreImage';
 //window.SAVE_PATH = window.getCookieByString('path_tmp') || '';
 window.FILE_PATH = $.cookie('file_tmp') || '';
 window.DIRECTORY = $.cookie('path_tmp') || '';

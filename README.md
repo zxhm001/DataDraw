@@ -73,6 +73,10 @@ location /youdomain/ {
 - 登录后台（初始用户名 admin@datadraw.net 初始密码 admin 后台URl http://你的域名/Admin, 登录后到设置>基本设置中检查站点URL是否正确）
 - 到用户管理页修改初始用户密码
 
+## 待完善
+
+- [] mxGraph 的PHP后台代码是四年前的版本，很不完善，BUG很多，需要照着Java版本给重写一遍
+
 ## 许可证
 
 GPLV3

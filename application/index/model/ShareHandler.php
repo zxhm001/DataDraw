@@ -170,14 +170,22 @@ class ShareHandler extends Model{
 		if(!$checkStatus[0]){
 			return [$checkStatus[0],$checkStatus[1]];
 		}
-		$reqPath = Db::name('files')->where('id',$this->shareData["source_name"])->find();
-		if($reqPath["dir"] == "/"){
-			$reqPath["dir"] = $reqPath["dir"].$reqPath["orign_name"];
-		}else{
-			$reqPath["dir"] = $reqPath["dir"]."/".$reqPath["orign_name"];
+		$image = Db::name('images')->where('file_id',$this->shareData["source_name"])->find();
+		if($image != null)
+		{
+			$imageStr = $image['image'];
+			if (!preg_match('/data:([^;]*);base64,(.*)/', $imageStr, $matches)) {
+				echo [false,'获取失败'];
+			}
+			$content = base64_decode($matches[2]);
+			header('Content-Type: '.$matches[1]);
+			header('Content-Length: '.strlen($content));
+			echo $content;
 		}
-		$fileObj = new FileManage($reqPath["dir"],$this->shareData["owner"]);
-		return $fileObj->PreviewXmlHandler();
+		else
+		{
+			return "";
+		}
 	}
 
 	public function PreviewFolder($user,$path,$folder=false){

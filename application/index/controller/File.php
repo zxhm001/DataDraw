@@ -129,6 +129,33 @@ class File extends Controller{
 		$this->redirect("http://view.officeapps.live.com/op/view.aspx?src=".urlencode($tmpUrl),302);
 	}
 
+	public function XmlThumb()
+	{
+		$filePath = input("get.path");
+		$isxml = input("get.isXml");
+		if(input("get.isXml") != "true"){
+			return "";
+		}
+		$fileObj = new FileManage($filePath,$this->userObj->uid);
+		$image = Db::name('images')->where('file_id',$fileObj->fileData['id'])->find();
+		if($image != null)
+		{
+			$imageStr = $image['image'];
+			if (!preg_match('/data:([^;]*);base64,(.*)/', $imageStr, $matches)) {
+				echo [false,'获取失败'];
+			}
+			$content = base64_decode($matches[2]);
+			header('Content-Type: '.$matches[1]);
+			header('Content-Length: '.strlen($content));
+			echo $content;
+		}
+		else
+		{
+			
+			$this->redirect('/static/img/text-xml.png');
+		}
+	}
+
 	public function Thumb(){
 		$filePath = input("get.path");
 		if(input("get.isImg") != "true"){
