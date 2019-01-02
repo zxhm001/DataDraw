@@ -1,0 +1,90 @@
+{extend name="header_home" /}
+{block name="title"}精选模板- {$options.siteName}{/block}
+{block name="content"}
+    <script src="/static/js/template.js"></script>
+    <link rel="stylesheet" href="/static/css/template.css">
+    </head>
+    <body>
+        <div id="container">
+            {include file="navbar_home" /}
+            <div class="col-md-10 template-content">
+                <!-- <h1>精选模板</h1>
+                <br> -->
+                <div class="alert alert-info alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>提示:</strong> 终身会员用户可以点击模板可以从模板创建自己的图表
+                    <a href="/Vip"><strong>成为会员</strong></a>
+                  </div>
+                <div class="panel-group" id="accordion">
+                    {volist name='templateClass' id='class'}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="panel-title-a" data-toggle="collapse" data-parent="#accordion" 
+                                   href="#{$class.name}">
+                                   {$class.text}
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{$class.name}" class="panel-collapse collapse {if condition='($class.id == 1)'}in{/if}">
+                            <div class="panel-body">
+                                {volist name='templates' id='template'}
+                                    {if condition='($class.id == $template.class_id)'}
+                                    <div id="{$template.name}" class="col-xs-4 col-md-2 thumbbox">
+                                        <a href="javascript:" data-template="{$template.name}" data-libs="{$template.libs}" class="thumbnail thumblink">
+                                            <span class="thumbspan">
+                                                <img src="{$template.thumb}" alt="{$template.name}">
+                                            </span>
+                                        </a>
+                                        <div class="template-name"><div>{$template.text}</div></div>
+                                    </div>
+                                    {/if}
+                                {/volist}
+                            </div>
+                        </div>
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        </div>
+        <div id="new-graph-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">从模板创建</h4>
+                    </div>
+                    <div class="modal-body">
+                        <label class="radio ng-binding">图表名称</label>
+                        <div class="form-group is-empty">
+                            <input class="form-control ng-pristine ng-valid ng-empty ng-touched" autofocus="autofocus" id="graph-name-input">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="createGraph()">创建</button>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div id="new-vip-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">从模板创建</h4>
+                    </div>
+                    <div class="modal-body">
+                        模板是终身会员专享权益，邀请5个好友注册或付款99元即可成为会员
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" onclick="location.href='/Vip'">成为会员</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="/static/js/material.js"></script>
+</html>
+{/block}

@@ -55,12 +55,63 @@
 	<script type="text/javascript" src="/static/editor/js/Menus.js"></script>
 	<script type="text/javascript" src="/static/editor/js/Toolbar.js"></script>
 	<script type="text/javascript" src="/static/editor/js/Dialogs.js"></script>
+	<!--多个组件-->
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Advanced.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-AlliedTelesis.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Android.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-ArchiMate.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-ArchiMate3.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Arrows2.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Atlassian.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-AWS.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-AWS3.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-AWS3D.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-AWS4.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Azure.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Basic.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Bootstrap.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-BPMN.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Cabinet.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-CiscoSafe.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Citrix.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-DFD.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-EIP.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Electrical.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-ER.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Floorplan.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Flowchart.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-GCP.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-GCP2.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Gmdl.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-IBM.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Infographic.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Ios.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Ios7.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-LeanMapping.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Mockup.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-MSCAE.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Network.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Office.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-PID.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Rack.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Sitemap.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Sysml.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-Veeam.js"></script>
+	<script type="text/javascript" src="/static/editor/js/sidebar/Sidebar-WebIcons.js"></script>
+
+	<script type="text/javascript" src="/static/editor/js/Setting.js"></script>
 </head>
 <body class="geEditor">
 	<script type="text/javascript">
+		window.isVip = false;
 		// Extends EditorUi to update I/O action states based on availability of backend
 		(function()
 		{
+			$.post('/Vip/isVip',function(response){
+				window.isVip = response;
+			});
+
 			var editorUiInit = EditorUi.prototype.init;
 			
 			EditorUi.prototype.init = function()
@@ -123,6 +174,15 @@
 						{
 							console.error(e);
 						}
+					});
+				}
+				if(TEMPLATE!='')
+				{
+					$.get(window.TEMPLATE_URL + '?template_name=' + TEMPLATE,function(response){
+						var doc = mxUtils.parseXml(response.result.template); 
+						window.UI.editor.setGraphXml(doc.documentElement);
+						window.UI.editor.setModified(false);
+						window.UI.editor.undoManager.clear();
 					});
 				}
 				

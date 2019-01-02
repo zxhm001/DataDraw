@@ -357,12 +357,6 @@ var AboutDialog = function(editorUi)
 	mxUtils.write(link2, 'Cloudreve');
 	div.appendChild(link2);
 
-	// mxUtils.br(div);
-	// var link = document.createElement('a');
-	// link.setAttribute('href', 'https://www.myshuju.net/');
-	// link.setAttribute('target', '_blank');
-	// mxUtils.write(link, '数字绘');
-	// div.appendChild(link);
 	mxUtils.br(div);
 	mxUtils.br(div);
 	var closeBtn = mxUtils.button(mxResources.get('close'), function()
@@ -374,6 +368,41 @@ var AboutDialog = function(editorUi)
 	
 	this.container = div;
 };
+
+//提示购买VIP的窗口
+var VipDialog = function(editorUi){
+	var div = document.createElement('div');
+	div.setAttribute('align', 'center');
+	var hd = document.createElement('div');
+	hd.className = 'geDialogTitle';
+	mxUtils.write(hd, mxResources.get('shapes'));
+	hd.style.position = 'absolute';
+	hd.style.top = '0px';
+	hd.style.left = '0px';
+	hd.style.lineHeight = '40px';
+	hd.style.height = '40px';
+	hd.style.right = '0px';
+	div.appendChild(hd);
+	var label = document.createElement('div');
+	mxUtils.write(label, '更多图形是终身会员专享权益，邀请5个好友注册或付款99元即可成为会员');
+	label.style.marginTop = '48px';
+	label.style.marginBottom='28px';
+	div.appendChild(label);
+	var cancelBtn = mxUtils.button(mxResources.get('close'), function()
+	{
+		editorUi.hideDialog();
+	});
+	cancelBtn.className = 'geBtn';
+		
+	var applyBtn = mxUtils.button('成为会员', function()
+	{
+		window.open("/Vip",'_blank');
+	});
+	applyBtn.className = 'geBtn gePrimaryBtn';
+	div.appendChild(cancelBtn);
+	div.appendChild(applyBtn);
+	this.container = div;
+}
 
 /**
  * Constructs a new filename dialog.
@@ -1776,6 +1805,468 @@ var LinkDialog = function(editorUi, initialValue, btnLabel, fn)
 	}
 
 	div.appendChild(btns);
+
+	this.container = div;
+};
+
+var MoreShapesDialog = function(editorUi, expanded, entries) 
+{
+	entries = (entries != null) ? entries : editorUi.sidebar.entries;
+	var div = document.createElement('div');
+	var newEntries = [];
+	
+	// Adds custom sections first
+	if (editorUi.sidebar.customEntries != null)
+	{
+		for (var i = 0; i < editorUi.sidebar.customEntries.length; i++)
+		{
+			var section = editorUi.sidebar.customEntries[i];
+			var tmp = {title: editorUi.getResource(section.title), entries: []};
+			
+			for (var j = 0; j < section.entries.length; j++)
+			{
+				var entry = section.entries[j];
+				tmp.entries.push({id: entry.id, title:
+					editorUi.getResource(entry.title),
+					desc: editorUi.getResource(entry.desc),
+					image: entry.preview});
+			}
+			
+			newEntries.push(tmp);
+		}
+	}
+	
+	// Adds built-in sections and filter entries
+	for (var i = 0; i < entries.length; i++)
+	{
+		if (editorUi.sidebar.enabledLibraries == null)
+		{
+			newEntries.push(entries[i]);
+		}
+		else
+		{
+			var tmp = {title: entries[i].title, entries: []};
+			
+			for (var j = 0; j < entries[i].entries.length; j++)
+			{
+				if (mxUtils.indexOf(editorUi.sidebar.enabledLibraries,
+					entries[i].entries[j].id) >= 0)
+				{
+					tmp.entries.push(entries[i].entries[j]);
+				}
+			}
+			
+			if (tmp.entries.length > 0)
+			{
+				newEntries.push(tmp);
+			}
+		}
+	}
+	
+	entries = newEntries;
+	
+	if (expanded)
+	{
+		var hd = document.createElement('div');
+		hd.className = 'geDialogTitle';
+		mxUtils.write(hd, mxResources.get('shapes') + '(会员)');
+		hd.style.position = 'absolute';
+		hd.style.top = '0px';
+		hd.style.left = '0px';
+		hd.style.lineHeight = '40px';
+		hd.style.height = '40px';
+		hd.style.right = '0px';
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			hd.style.width = '718px';
+		}
+		
+		var list = document.createElement('div');
+		var preview = document.createElement('div');
+		
+		list.style.position = 'absolute';
+		list.style.top = '40px';
+		list.style.left = '0px';
+		list.style.width = '202px';
+		list.style.bottom = '60px';
+		list.style.overflow = 'auto';
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			list.style.height = '437px';
+			list.style.marginTop = '1px';
+		}
+		
+		preview.style.position = 'absolute';
+		preview.style.left = '202px';
+		preview.style.right = '0px';
+		preview.style.top = '40px';
+		preview.style.bottom = '60px';
+		preview.style.overflow = 'auto';
+		preview.style.borderLeft = '1px solid rgb(211, 211, 211)';
+		preview.style.textAlign = 'center';
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			preview.style.width = parseInt(hd.style.width) - 202 + 'px';
+			preview.style.height = list.style.height;
+			preview.style.marginTop = list.style.marginTop;
+		}
+		
+		var currentListItem = null;
+		var applyFunctions = [];
+		
+		var listEntry = document.createElement('div');
+		listEntry.style.position = 'relative';
+		listEntry.style.left = '0px';
+		listEntry.style.right = '0px';
+		
+		for (var i = 0; i < entries.length; i++)
+		{
+			(function(section)
+			{
+				var title = listEntry.cloneNode(false);
+				title.style.fontWeight = 'bold';
+				title.style.backgroundColor ='#e5e5e5';
+				title.style.padding = '6px 0px 6px 20px';
+				mxUtils.write(title, section.title);
+				list.appendChild(title);
+	
+				for (var j = 0; j < section.entries.length; j++)
+				{
+					(function(entry)
+					{
+						var option = listEntry.cloneNode(false);
+						option.style.cursor = 'pointer';
+						option.style.padding = '4px 0px 4px 20px';
+						
+						var checkbox = document.createElement('input');
+						checkbox.setAttribute('type', 'checkbox');
+						checkbox.checked = editorUi.sidebar.isEntryVisible(entry.id);
+						checkbox.defaultChecked = checkbox.checked;
+						option.appendChild(checkbox);
+						mxUtils.write(option, ' ' + entry.title);
+	
+						list.appendChild(option);
+						
+						var itemClicked = function(evt)
+						{
+							if (evt == null || mxEvent.getSource(evt).nodeName != 'INPUT')
+							{
+								preview.style.textAlign = 'center';
+								preview.style.padding = '0px';
+								preview.style.color = '';
+								preview.innerHTML = '';
+								
+								if (entry.desc != null)
+								{
+									var pre = document.createElement('pre');
+									pre.style.boxSizing = 'border-box';
+									pre.style.fontFamily = 'inherit';
+									pre.style.margin = '20px';
+									pre.style.right = '0px';
+									pre.style.textAlign = 'left';
+									mxUtils.write(pre, entry.desc);
+									preview.appendChild(pre);
+								}
+								
+								if (entry.imageCallback != null)
+								{
+									entry.imageCallback(preview);
+								}
+								else if (entry.image != null)
+								{
+									preview.innerHTML += '<img border="0" src="' + entry.image + '"/>';
+								}
+								else if (entry.desc == null)
+								{
+									preview.style.padding = '20px';
+									preview.style.color = 'rgb(179, 179, 179)';
+									mxUtils.write(preview, mxResources.get('noPreview'));
+								}
+								
+								if (currentListItem != null)
+								{
+									currentListItem.style.backgroundColor = '';
+								}
+								
+								currentListItem = option;
+								currentListItem.style.backgroundColor = '#ebf2f9';
+								
+								if (evt != null)
+								{
+									mxEvent.consume(evt);
+								}
+							}
+						};
+						
+						mxEvent.addListener(option, 'click', itemClicked);
+						mxEvent.addListener(option, 'dblclick', function(evt)
+						{
+							checkbox.checked = !checkbox.checked;
+							mxEvent.consume(evt);
+						});
+						
+						applyFunctions.push(function()
+						{
+							return (checkbox.checked) ? entry.id : null;
+						});
+						
+						// Selects first entry
+						if (i == 0 && j == 0)
+						{
+							itemClicked();
+						}
+					})(section.entries[j]);
+				}
+			})(entries[i]);
+		}
+
+		div.style.padding = '30px';
+		
+		div.appendChild(hd);
+		div.appendChild(list);
+		div.appendChild(preview);
+		
+		var buttons = document.createElement('div');
+		buttons.className = 'geDialogFooter';
+		buttons.style.position = 'absolute';
+		buttons.style.paddingRight = '16px';
+		buttons.style.color = 'gray';
+		buttons.style.left = '0px';
+		buttons.style.right = '0px';
+		buttons.style.bottom = '0px';
+		buttons.style.height = '60px';
+		buttons.style.lineHeight = '52px';
+		
+		if (mxClient.IS_QUIRKS)
+		{
+			buttons.style.width = hd.style.width;
+			buttons.style.paddingTop = '12px';
+		}
+
+		var cb = document.createElement('input');
+		cb.setAttribute('type', 'checkbox');
+		
+		if (mxClient.IS_CHROMEAPP)
+		{
+			var span = document.createElement('span');
+			span.style.paddingRight = '20px';
+			span.appendChild(cb);
+			mxUtils.write(span, ' ' + mxResources.get('rememberThisSetting'));
+			cb.checked = true;
+			cb.defaultChecked = true;
+			
+			mxEvent.addListener(span, 'click', function(evt)
+			{
+				if (mxEvent.getSource(evt) != cb)
+				{
+					cb.checked = !cb.checked;
+					mxEvent.consume(evt);
+				}
+			});
+			
+			if (mxClient.IS_QUIRKS)
+			{
+				span.style.position = 'relative';
+				span.style.top = '-6px';
+			}
+
+			buttons.appendChild(span);
+		}
+		
+		var cancelBtn = mxUtils.button(mxResources.get('cancel'), function()
+		{
+			editorUi.hideDialog();
+		});
+		cancelBtn.className = 'geBtn';
+		
+		var applyBtn = mxUtils.button(mxResources.get('apply'), function()
+		{
+			if(!window.isVip)
+			{
+				editorUi.showDialog(new VipDialog(editorUi).container, 360,120, true, true);
+				return;
+			}
+	    	editorUi.hideDialog();
+	    	var libs = [];
+			
+			for (var i = 0; i < applyFunctions.length; i++)
+			{
+				var lib = applyFunctions[i].apply(this, arguments);
+				
+				if (lib != null)
+				{
+					libs.push(lib);
+				}
+			}
+			
+			editorUi.sidebar.showEntries(libs.join(';'), cb.checked, true);
+		});
+		applyBtn.className = 'geBtn gePrimaryBtn';
+		
+		if (editorUi.editor.cancelFirst)
+		{
+			buttons.appendChild(cancelBtn);
+			buttons.appendChild(applyBtn);
+		}
+		else
+		{
+			buttons.appendChild(applyBtn);
+			buttons.appendChild(cancelBtn);
+		}
+		
+		div.appendChild(buttons);
+	}
+	else
+	{
+		var libFS = document.createElement('table');
+		var tbody = document.createElement('tbody');
+		div.style.height = '100%';
+		div.style.overflow = 'auto';
+		var row = document.createElement('tr');
+		libFS.style.width = '100%';
+		
+		var leftDiv = document.createElement('td');
+		var midDiv = document.createElement('td');
+		var rightDiv = document.createElement('td');
+				
+		var addLibCB = mxUtils.bind(this, function(wrapperDiv, title, key) 
+		{
+			var libCB = document.createElement('input');
+			libCB.type = 'checkbox';
+			libFS.appendChild(libCB);
+			
+			libCB.checked = editorUi.sidebar.isEntryVisible(key);
+			
+			var libSpan = document.createElement('span');
+			mxUtils.write(libSpan, title);
+			
+			var label = document.createElement('div');
+			label.style.display = 'block';
+			label.appendChild(libCB);
+			label.appendChild(libSpan);
+			
+			mxEvent.addListener(libSpan, 'click', function(evt)
+			{
+				libCB.checked = !libCB.checked;
+				mxEvent.consume(evt);
+			});
+			
+			wrapperDiv.appendChild(label);
+			
+			return function()
+			{
+				return (libCB.checked) ? key : null;
+			};
+		});
+		
+		row.appendChild(leftDiv);
+		row.appendChild(midDiv);
+		row.appendChild(rightDiv);
+	
+		tbody.appendChild(row);
+		libFS.appendChild(tbody);
+		
+		var applyFunctions = [];
+		var count = 0;
+		
+		// Counts total number of entries
+		for (var i = 0; i < entries.length; i++)
+		{
+			for (var j = 0; j < entries[i].entries.length; j++)
+			{
+				count++;
+			}
+		}
+		
+		// Distributes entries on columns
+		var cols = [leftDiv, midDiv, rightDiv];
+		var counter = 0;
+		
+		for (var i = 0; i < entries.length; i++)
+		{
+			(function(section)
+			{
+				for (var j = 0; j < section.entries.length; j++)
+				{
+					(function(entry)
+					{
+						var index = Math.floor(counter / (count / 3));
+						applyFunctions.push(addLibCB(cols[index], entry.title, entry.id));
+						counter++;
+					})(section.entries[j]);
+				}
+			})(entries[i]);
+		}
+
+		div.appendChild(libFS);
+		
+		var remember = document.createElement('div');
+		remember.style.marginTop = '18px';
+		remember.style.textAlign = 'center';
+		
+		var cb = document.createElement('input');
+		
+		cb.setAttribute('type', 'checkbox');
+		cb.checked = true;
+		cb.defaultChecked = true;
+		remember.appendChild(cb);
+		var span = document.createElement('span');
+		mxUtils.write(span, ' ' + mxResources.get('rememberThisSetting'));
+		remember.appendChild(span);
+		
+		mxEvent.addListener(span, 'click', function(evt)
+		{
+			cb.checked = !cb.checked;
+			mxEvent.consume(evt);
+		});
+		
+		div.appendChild(remember);
+		
+		var cancelBtn = mxUtils.button(mxResources.get('cancel'), function()
+		{
+			editorUi.hideDialog();
+		});
+		cancelBtn.className = 'geBtn';
+		
+		var applyBtn = mxUtils.button(mxResources.get('apply'), function()
+		{
+			var libs = ['search'];
+			
+			for (var i = 0; i < applyFunctions.length; i++)
+			{
+				var lib = applyFunctions[i].apply(this, arguments);
+				
+				if (lib != null)
+				{
+					libs.push(lib);
+				}
+			}
+			
+			editorUi.sidebar.showEntries((libs.length > 0) ? libs.join(';') : '', cb.checked);
+	    	editorUi.hideDialog();
+		});
+		applyBtn.className = 'geBtn gePrimaryBtn';
+		
+		var buttons = document.createElement('div');
+		buttons.style.marginTop = '26px';
+		buttons.style.textAlign = 'right';
+		
+		if (editorUi.editor.cancelFirst)
+		{
+			buttons.appendChild(cancelBtn);
+			buttons.appendChild(applyBtn);
+		}
+		else
+		{
+			buttons.appendChild(applyBtn);
+			buttons.appendChild(cancelBtn);
+		}
+	
+		div.appendChild(buttons);
+	}
 
 	this.container = div;
 };

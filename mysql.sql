@@ -155,7 +155,8 @@ CREATE TABLE `sd_groups` (
 INSERT INTO `sd_groups` (`id`, `group_name`, `policy_name`, `max_storage`, `grade_policy`, `speed`, `allow_share`, `color`, `policy_list`, `range_transfer`, `webdav`,`aria2`) VALUES
 (1, '管理员', 1, 1073741824, '', '', 1, 'danger', '1', 1, 1, "0,0,0"),
 (2, '游客', 1, 0, '', '', 1, 'default', '1', 0, 0, "0,0,0"),
-(3, '注册会员', 1, 52428800, '', '', 1, 'default', '1', 1, 1, "0,0,0");
+(3, '注册用户', 1, 52428800, '', '', 1, 'default', '1', 1, 1, "0,0,0"),
+(4, '终身会员', 1, 52428800, '', '', 1, 'default', '1', 1, 1, "0,0,0");
 
 -- --------------------------------------------------------
 
@@ -331,9 +332,7 @@ ALTER TABLE `sd_download`
   ADD PRIMARY KEY (`id`);
 ALTER TABLE `sd_download`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Indexes for dumped tables
---
+
 --
 -- 表的结构 `sd_task`
 --
@@ -348,6 +347,39 @@ CREATE TABLE `sd_task` (
   `addtime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+
+--
+-- 表的结构 `sd_invite`
+--
+CREATE TABLE `sd_invite`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `new_id` int(11) NULL DEFAULT NULL,
+  `invite_id` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM CHARACTER SET = utf8 ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for sd_order
+-- ----------------------------
+CREATE TABLE `sd_order`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NULL DEFAULT NULL,
+  `app_id` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `out_trade_no` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `trade_no` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `total_amount` float(255, 0) NULL DEFAULT NULL,
+  `buyer_id` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `trade_type` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `trade_status` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `pay_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+
+--
+-- Indexes for dumped tables
+--
 --
 -- Indexes for table `sd_callback`
 --

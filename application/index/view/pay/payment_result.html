@@ -1,0 +1,23 @@
+{extend name="header_public" /}
+{block name="title"}支付成功 - {$options.siteName}{/block}
+{block name="content"}
+<link rel="stylesheet" href="/static/css/error.css" />
+</head>
+<body data-ma-header="teal">
+
+<div class="container" align="center">
+<header align="left">
+<br>
+<img src="/static/img/logo_s.png" style="width:192px;">
+</header>
+    <div class="error_content" >
+        <div class="jumbotron animated bounce" style="padding-left:30px;">
+            <h1>{$title}</h1>
+            <br>
+            <p>{$message}</p>
+            <p><a class="btn btn-primary btn-lg" href="/Vip">{$btn}</a></p>
+        </div>
+    </div>
+</div>
+</body>
+{/block}

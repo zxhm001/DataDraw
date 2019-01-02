@@ -1,3 +1,16 @@
+String.prototype.endWith=function(endStr){
+    var d = this.length-endStr.length;
+    return (d >= 0 && this.lastIndexOf(endStr) == d)
+}
+
+function getUrlParam(name) {
+	var url = location.href;
+	var params = url.substr(url.indexOf('?'));
+	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	var r = params.substr(1).match(reg);
+	if (r!=null) return unescape(r[2]); return null;
+}
+
 $.material.init();
 function changeColor(c1,c2){
 	$(".navbar.navbar-inverse").animate({
@@ -141,3 +154,16 @@ $("#loginSwitch2,#loginSwitch,#loginSwitch3").click(function(){switchToLog()});
 $("#qqLogin").click(function(){
 	window.location.href="/Member/QQLogin";
 })
+
+$(document).ready(function(){
+	var url = location.href;
+	var front = url.substr(0,url.lastIndexOf('?'));
+	if (front.endsWith('register')) {
+		switchToReg();
+	}
+	var invite = getUrlParam('invite');
+	if(invite != null && invite.length > 0)
+	{
+		$.cookie('invite', invite); 
+	}
+});

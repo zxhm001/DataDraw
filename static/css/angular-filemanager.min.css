@@ -901,6 +901,7 @@ video {
 .share-content {
 	background-color: #fafafa;
 	height: 100%;
+	padding-top: 20px;
 	padding-left: 20px;
 	padding-right: 20px;
 	overflow: auto
@@ -1039,4 +1040,13 @@ li[class=active] {
 
 .drag_info {
 	margin-top: 47px
+}
+
+.template-content {
+	background-color: #fafafa;
+	height: 100%;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto
 }

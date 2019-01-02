@@ -86,7 +86,7 @@ class User extends Model{
 	 * @param  [type] $userPass  [description]
 	 * @return [type]            [description]
 	 */
-	static function register($userEmail,$userPass,$captchaCode){
+	static function register($userEmail,$userPass,$captchaCode,$inviteid){
 		if(Option::getValue("reg_captcha")=="1"){
 			if(!self::checkCaptcha($captchaCode)){
 				return [false,"验证码错误"];
@@ -151,6 +151,25 @@ class User extends Model{
 				$mailObj = new Mail();
 				$mailObj->Send($userName,explode("@",$userName)[0],"【".$options["siteName"]."】"."注册激活",$mailContent);
 				return [true,"ec"];
+			}
+			//邀请记录
+			if($inviteid != null)
+			{
+				if(Db::name('users')->where('id',$inviteid)->find() !=null)
+				{
+					$inviteData = [
+						'invite_id'=>$inviteid,
+						'new_id'=>$userId
+					];
+					if (Db::name('invite')->insert($inviteData)) {
+						//邀请记录够了之后换会员
+						$inviteCount = Db::name('invite')->where('invite_id',$inviteid)->count();
+						if ($inviteCount>=5) {
+							$vipgroup = Db::name('groups')->where('group_name','终身会员')->find();
+							Db::name('users')->where('id', $inviteid)->update(['user_group' => $vipgroup['id']]);
+						}
+					}
+				}
 			}
 			return [true,"注册成功"];
 		}

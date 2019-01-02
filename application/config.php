@@ -79,7 +79,7 @@ return [
 
     // PATHINFO变量名 用于兼容模式
     'var_pathinfo'           => 's',
-'url_convert'    =>  false,
+    'url_convert'    =>  false,
     // 兼容PATH_INFO获取
     'pathinfo_fetch'         => ['ORIG_PATH_INFO', 'REDIRECT_PATH_INFO', 'REDIRECT_URL'],
     // pathinfo分隔符
@@ -267,4 +267,43 @@ return [
         'bg'       => [243, 251, 254],
         // 背景颜色
         'reset'    => true],
+    // +----------------------------------------------------------------------
+    // | 支付宝设置
+    // +----------------------------------------------------------------------
+    'alipay'=>[
+        //应用ID,您的APPID。
+		'app_id' => "2019010262714670",
+		//商户私钥
+		'merchant_private_key' => "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCAoQBf8c7c3SYrEVl1dCmSgjM1COS2uvbzWSpuyDlEoLAfEq9mx5GtfeSavD+DGcoWa6z3wp/qyRcP51Svmt0yOI5MdM/GDWNnjgQYgwbwgEeCC+dAtlX4Mz2ftmoou+S554Iaq2HJGypr0J3zQ8qWxpbJPZnRLG0oYLZRcAkgMZwo9tgyczq7hPhWHKNxmJncCBdGYnpIp2hvOVKVXkHf8xeUUeBJ36HT2aEtaW+GnEu3GVGnKBwJz3uwxAXaYosTsYP1ZvgRnUtn+ZwGWgAE3TTIriIQkLYI8T1G25eh2owd0g7TMouosB57QUV+A41QMW6q+LkkhAMwSCVyeeW1AgMBAAECggEAWrYwV3lmU2g6pKDFoAld0A62Ii61bRCJW7CENkBJ8tYHnsJEpI0VdW6VK3Kar9AeLpWdE9VThfZupy6TEIx8dhBgehbe+GM0uTD0Pn0ZBb7RryrJ2V89XZ51VQ8F6tgnQ9u6ayh1+6eG0SX8XjRuyMogSKeCtHtKN/GMYf5K0UJeNWMzIRlKCN5N97zX3RGae9//AUAaAFn8u2YqAxHzAVvvS+AkTbWWg2wa0t00UarSLNP6URhuAKVskMOpvKdAvW9QIxn1zRe3Ue10wq18lW0vmfJRxBq/AiB8EO0lI5ZK9a08IHcqbHAxlYWAnQHT4GK9yDO5K3ORsMbMkcv5AQKBgQD5oaxLSTsov6dco6W2UiqBNxlMLpLZRkqlXQd0kjgFXgA0a4Xg6+AgPDS5kq92+3SsLghdurxQZ41vawz9z+Fa4RJ3V9fcygK+EYqWvUBmKBj/e6w9VKUANYOPHOl1QBYNf4j6gt1kuHIjMrGxMXHPOlksAcVIwmqQa7ZKnLVXFQKBgQCD6RF/B1lDuRBXKzWlbUcVDtL4xYHHAQh2x94y6CFn7QXcNuyh02+UmLRHjl0CZepfyKnuydqRly7o3b9NyTSv+lhXWEyZyKzn7INjn99B9DKSbT6f07PFh5HN7XQfV62/oob5DXswVbC/tTfit4vmSTWw1jxIXPow7gVKYB38IQKBgDRMPK5hHzXAQS3VUwhJWoJLqs8dCsLeSREv1joD0By/vsc8p4WhpQjb1Cf0pTIGKEFSO4p3brBhoW3wPX6HKK1Dbfz2uFCXOc/cGO7Po0hDqkkL/d+zdgX/MBqxce+Qh444Y9gnxn4tbiwVmMiIlVFW5gukK1K8+FpdVol3Hz6pAoGAE1e30xK2yjF27fFOGoXdqH7V/NipYQ8LuK8yK/DSBTVCaLo9FLW2ZOnHdb6wcMuVBJqeIH/E5xhuLoNlq/hXG37wOU6fXOWKRS/vTEqDKF6wk7wlNLaMY+ivPq0VHAt1VOZ2OEr7x2ipVFM0cLBNeWU+1EF18X6AyW/9opxZiUECgYEA7gPB5PqMsKKfiAa9NH81ESvIt1TbhUeLyNNn1ESUlnV6RoF6b0XCkLDLsAqAcTF21+oM8j2owRO4MT8pCKsRdn4ODr+Ks5xGk1g0YbbMK6gW3cesoB/TqKP1lDSEhjKuJBndseUzCA2i801oEXJDLoTR3kOro3s4Skm0Ag9YfGA=",		
+		//异步通知地址
+		'notify_url' => "https://www.myshuju.net/pay/alipay_notify",		
+		//同步跳转
+		'return_url' => "https://www.myshuju.net/pay/alipay_return",
+		//编码格式
+		'charset' => "UTF-8",
+		//签名方式
+		'sign_type'=>"RSA2",
+		//支付宝网关//https://openapi.alipay.com/gateway.do
+		'gatewayUrl' => "https://openapi.alipay.com/gateway.do",
+		//支付宝公钥,查看地址：https://openhome.alipay.com/platform/keyManage.htm 对应APPID下的支付宝公钥。
+		'alipay_public_key' => "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvoEx1Wut+IcR6Oo3uRmC/jONERgSm8ZBHyoLSP+nx/F3E/aV+5cUw/FtO7rtjUvJX6lxBgaNyWkU4+tAkzLR047ZRIiNhueSfwMiJ5x1+EkWsI89O4ZqRNZkx9w5//0oac5lyk2SI/1fm78yrT0/GoqmGF+aTmpQUB8gaxCL/+Dv2FYG4De7PMAOKWT1K5V09ibuIH1+OLQfn8Lcymd6Vo9f/THz1M5h+grgKI4v/Ms9kdLW2fWF8HfTAbWaR9URePLVNy11IvurWkPKRK65eXBI5rQzJ3r9g+OFTHlWcuIanQUomFP5SuTo6kKqwZ6ptsejmtqpQZ8ucHCAKAiRvwIDAQAB",
+    ],
+    // +----------------------------------------------------------------------
+    // | 微信支付设置
+    // +----------------------------------------------------------------------
+    'wxpay'=>[
+        //绑定支付的APPID（必须配置，开户邮件中可查看）
+        'app_id'=>"wx426b3015555a46be",
+        //商户号（必须配置，开户邮件中可查看）
+        'merchanti_d'=>"1900009851",
+        //支付回调url
+        'notify_url'=>"",
+        //签名和验证签名方式， 支持md5和sha256方式
+        'sign_type'=>"HMAC-SHA256",
+        //商户支付密钥，参考开户邮件设置（必须配置，登录商户平台自行设置）, 请妥善保管， 避免密钥泄露
+        'app_secret'=>"7813490da6f1265e4901ffb80afaa36f",
+        //公众帐号secert（仅JSAPI支付的时候需要配置， 登录公众平台，进入开发者中心可设置）， 请妥善保管， 避免密钥泄露
+        'key'=>"8934e7d15453e97507ef794cf7b0519d",
+
+    ],
 ];

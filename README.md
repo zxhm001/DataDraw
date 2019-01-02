@@ -31,7 +31,7 @@ composer install
 
 ### 3. 配置MySQL
 
-将根目录下的mysql.sql到入到你的数据库，编辑application/database_sample.php文件，填写数据库信息，并重命名为database.php
+将根目录下的mysql.sql到入到你的数据库，编辑application/database_sample.php文件，填写数据库信息，并重命名为database.php，编辑application/config_sample.php文件，主要修改最后部分的支付宝支付和微信支付信息，并重命名为config.php
 
 ### 4. 目录权限
 

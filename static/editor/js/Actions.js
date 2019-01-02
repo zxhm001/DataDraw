@@ -1249,6 +1249,10 @@ Actions.prototype.init = function()
 			ui.actions.get('image').funct();
 		}
 	}).isEnabled = isGraphEnabled;
+	this.addAction('shapes...', mxUtils.bind(this,function()
+	{
+		this.editorUi.showDialog(new MoreShapesDialog(this.editorUi, true).container, 640,480, true, true);
+	}));
 	action = this.addAction('layers', mxUtils.bind(this, function()
 	{
 		if (this.layersWindow == null)

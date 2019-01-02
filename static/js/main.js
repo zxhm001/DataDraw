@@ -67,7 +67,7 @@ if(uploadConfig.saveType == "oss" || uploadConfig.saveType == "upyun" || uploadC
                 $('#success').hide();
                 $('#info_box').hide();
 
-                  $.cookie('path', decodeURI(getCookieByString("path_tmp"))); 
+                $.cookie('path', decodeURI(getCookieByString("path_tmp"))); 
                 plupload.each(files, function(file) {
                     var progress = new FileProgress(file, 'fsUploadProgress');
                     progress.setStatus("等待...");

@@ -1,0 +1,151 @@
+{extend name="header_home" /}
+{block name="title"}付费会员- {$options.siteName}{/block}
+{block name="content"}
+    <script src="/static/js/clipboard.min.js"></script>
+    <script src="/static/js/vip.js"></script>
+    <link rel="stylesheet" href="/static/css/vip.css">
+    </head>
+    <body>
+        <div id="container">
+            {include file="navbar_home" /}
+            <div class="col-md-10 vip-content">
+                <div class="jumbotron">
+                    <h2>成为终身会员&emsp;享受四项超级特权</h2>
+                    <p>
+                        {if condition='($groupData.group_name=="终身会员")'}
+                        <a href="#" role="button">您是会员</a>
+                        {else /}
+                        <a href="#buy-div" role="button">成为会员</a>
+                        {/if}
+                        
+                    </p>
+                </div>
+                <div class="row">
+                    <div class="div-privilege col-md-3 col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <strong>精美模板</strong>
+                            </div>
+                            <div class="panel-footer">
+                                <img src="/static//img/1.png">
+                                会员可从超过150个精美模板中直接创建图形，十倍于从零开始的绘图效率
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-privilege col-md-3 col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <strong>海量组件</strong>
+                            </div>
+                            <div class="panel-footer">
+                                <img src="/static//img/2.png">
+                                5大类，38小类，1000+个专业领域绘图组件，快速绘制专业的工作用图
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-privilege col-md-3 col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <strong>双倍空间</strong>
+                            </div>
+                            <div class="panel-footer">
+                                <img src="/static//img/3.png">
+                                双倍与注册用户的存储空间，足以在云端存储10000张以上复杂图纸
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-privilege col-md-3 col-sm-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <strong>会员社区</strong>
+                            </div>
+                            <div class="panel-footer">
+                                <img src="/static//img/4.png">
+                                可加入本站会员用户私有QQ群，直面服务团队和研发团队，接触优质用户
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row arrow-line">
+                    <span class="arrow arrow-left"></span>
+                    <span class="arrow-text"><h3>会员QQ群</h3></span>
+                    <span class="arrow arrow-right"></span>
+                </div>
+                <div class="qqun-div">
+                    {if condition='($groupData.group_name=="终身会员")'}
+                    <label>会员QQ群：785110648</label>
+                    {else /}
+                    <label>QQ群号仅终身会员可见</label>
+                    {/if}
+                </div>
+                <div class="row arrow-line">
+                    <span class="arrow arrow-left"></span>
+                    <span class="arrow-text"><h3>成为会员</h3></span>
+                    <span class="arrow arrow-right"></span>
+                </div>
+                <div class="row" id="buy-div">
+                    <div class="col-md-6 buy-method">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p><strong>方法一：</strong>邀请5个好友注册，即可成为本站终身会员，您已邀请&nbsp;<span style="color:red">{$inviteCount}</span>&nbsp;个</p>
+                                <div class="input-group">
+                                    <label>邀请链接：</label>
+                                    <input type="text" id="invite-text" class="form-control" readonly value="{$options.siteURL}Login#register?invite={$userInfo.uid}">
+                                    <span class="input-group-btn">
+                                        <button id="btn-copy" class="btn btn-primary" type="button" data-clipboard-action="copy" data-clipboard-target="#invite-text">复制</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 buy-method">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <p><strong>方法二：</strong>支付人民币99元，立即成为终身会员，享受会员权限</p>
+                                <div class="input-group">
+                                    <label>支付方式：</label>
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="payment" id="alipay" value="alipay" checked>
+                                                支付宝
+                                            </label>
+                                        </div>
+                                        <div class="radio disabled">
+                                            <label>
+                                                <input type="radio" name="payment" id="wechatpay" value="wxpay" disabled>
+                                                微信支付(暂未开通)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <span class="input-group-btn">
+                                        <button id="btn-pay" class="btn btn-primary" type="button" {if condition='($groupData.group_name=="终身会员")'} disabled {/if}>付款</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="waiting-pay-modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">购买终身会员</h4>
+                    </div>
+                    <div class="modal-body">
+                        到支付页面完成支付后即可成为终身会员
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">遇到问题</button>
+                        <button type="button" class="btn btn-primary" onclick="location.reload()">支付完成</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="/static/js/material.js"></script>
+</html>
+{/block}

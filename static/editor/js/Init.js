@@ -14,10 +14,14 @@ window.STORE_IMG_URL = window.STORE_IMG_URL || '/Graph/StoreImage';
 //window.SAVE_PATH = window.getCookieByString('path_tmp') || '';
 window.FILE_PATH = $.cookie('file_tmp') || '';
 window.DIRECTORY = $.cookie('path_tmp') || '';
+window.TEMPLATE = (urlParams['template'] != null && urlParams['template'].length > 0) ? decodeURIComponent(urlParams['template']):'';
+window.TEMPLATE_URL = window.TEMPLATE_URL || '/Template/getTemplate'
 window.OPEN_URL = window.OPEN_URL || '/File/ListFile';
 window.RESOURCES_PATH = window.RESOURCES_PATH || '/static/editor/resources';
 window.RESOURCE_BASE = window.RESOURCE_BASE || window.RESOURCES_PATH + '/grapheditor';
+window.GRAPH_IMAGE_PATH = window.GRAPH_IMAGE_PATH || '/static/editor/img';
 window.STENCIL_PATH = window.STENCIL_PATH || '/static/editor/stencils';
+window.SHAPES_PATH = window.SHAPES_PATH || '/static/editor/shapes';
 window.IMAGE_PATH = window.IMAGE_PATH || '/static/editor/images';
 window.STYLE_PATH = window.STYLE_PATH || '/static/editor/styles';
 window.CSS_PATH = window.CSS_PATH || '/static/editor/styles';

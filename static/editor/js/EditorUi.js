@@ -977,7 +977,7 @@ EditorUi.prototype.toolbarHeight = 34;
 /**
  * Specifies the height of the footer. Default is 28.
  */
-EditorUi.prototype.footerHeight = 28;
+EditorUi.prototype.footerHeight = 0;
 
 /**
  * Specifies the height of the optional sidebarFooterContainer. Default is 34.
@@ -3015,6 +3015,7 @@ EditorUi.prototype.createDivs = function()
 	this.footerContainer.style.left = '0px';
 	this.footerContainer.style.right = '0px';
 	this.footerContainer.style.bottom = '0px';
+	this.footerContainer.style.display = 'none';
 	this.footerContainer.style.zIndex = mxPopupMenu.prototype.zIndex - 2;
 	this.hsplit.style.width = this.splitSize + 'px';
 	this.sidebarFooterContainer = this.createSidebarFooterContainer();
@@ -3039,7 +3040,35 @@ EditorUi.prototype.createDivs = function()
  */
 EditorUi.prototype.createSidebarFooterContainer = function()
 {
-	return null;
+	var div =  this.createDiv('geSidebarContainer');
+	div.style.position = 'absolute';
+	div.style.overflow = 'hidden';
+	div.style.borderWidth = '3px';
+	
+	var elt2 = document.createElement('a');
+	elt2.className = 'geTitle';
+	elt2.style.height = '100%';
+	elt2.style.paddingTop = '9px';
+	elt2.innerHTML = '<span style="font-size:18px;margin-right:5px;">+</span>';
+
+	mxUtils.write(elt2, mxResources.get('moreShapes') + '...');
+
+	// Prevents focus
+	mxEvent.addListener(elt2, (mxClient.IS_POINTER) ? 'pointerdown' : 'mousedown',
+		mxUtils.bind(this, function(evt)
+	{
+		evt.preventDefault();
+	}));
+	
+	mxEvent.addListener(elt2, 'click', mxUtils.bind(this, function(evt)
+	{
+		this.actions.get('shapes').funct();
+		mxEvent.consume(evt);
+	}));
+	
+	div.appendChild(elt2);
+	
+	return div;
 };
 
 /**

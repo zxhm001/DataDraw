@@ -26,8 +26,9 @@ class Member extends Controller{
 	 * [Register description]
 	 */
 	public function Register(){
+		$inviteid = cookie('invite');
 		if(input('?post.username-reg') && input('?post.password-reg')){
-			$regAction = User::register(input('post.username-reg'),input('post.password-reg'),input('post.captchaCode'));
+			$regAction = User::register(input('post.username-reg'),input('post.password-reg'),input('post.captchaCode'),$inviteid);
 			if ($regAction[0]){
 				return json(['code' => '200','message' => $regAction[1]]);
 			}else{

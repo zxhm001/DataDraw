@@ -1,0 +1,174 @@
+
+
+.vip-content{
+	background-color: #fafafa;
+	height: 100%;
+	padding-top: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+	overflow: auto
+}
+
+.vip-content .row
+{
+    height: auto !important;
+}
+
+.jumbotron{
+    background-image: url(/static/img/vip_bg.png);
+    background-color: #160b03;
+    background-position: center center;
+    background-repeat: no-repeat;
+    text-align: center;
+    margin: -20px;
+}
+
+.jumbotron h2{
+    text-align: center;
+    color: #f9d681;
+    padding-bottom: 80px;
+    padding-top: 40px;
+}
+
+.jumbotron p{
+    padding-bottom: 40px;
+}
+
+.jumbotron a{
+    background-color: rgb(231, 192, 98);
+    border-bottom-color: rgb(249, 214, 129);
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-image-outset: 0;
+    border-image-repeat: stretch stretch;
+    border-image-slice: 100%;
+    border-image-source: none;
+    border-image-width: 1;
+    border-left-color: rgb(249, 214, 129);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgb(249, 214, 129);
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-top-color: rgb(249, 214, 129);
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-top-style: solid;
+    border-top-width: 1px;
+    color: rgb(53, 29, 6);
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Microsoft YaHei", arial, SimSun, "宋体";
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-language-override: normal;
+    font-optical-sizing: auto;
+    font-size: 20px;
+    font-size-adjust: none;
+    font-stretch: 100%;
+    font-style: normal;
+    font-variant: normal;
+    font-variant-alternates: normal;
+    font-variant-caps: normal;
+    font-variant-east-asian: normal;
+    font-variant-ligatures: normal;
+    font-variant-numeric: normal;
+    font-variant-position: normal;
+    font-variation-settings: normal;
+    font-weight: 400;
+    height: 50px;
+    line-height: 50px;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    text-align: center;
+    width: 185px;
+}
+
+.div-privilege
+{
+    padding: 0 0.4em;
+    margin-top: -30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.div-privilege img
+{
+    height: 64px;
+    width: 64px;
+}
+
+.arrow-line
+{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.arrow-line span
+{
+    display: inline-block;
+}
+
+.arrow{
+    width: 84px;
+    height: 16px;
+}
+
+.arrow-left
+{
+    background-image: url(/static/img/leftArrow.png)
+}
+
+.arrow-right
+{
+    background-image: url(/static/img/rightArrow.png)
+}
+
+.qqun-div
+{
+    text-align: center;
+    padding: 1em;
+}
+
+.buy-div
+{
+    padding: 1em;
+}
+
+.buy-method
+{
+    padding: 1em;
+}
+
+.buy-method .panel-body
+{
+    padding: 2em !important;
+}
+
+.buy-method .form-group
+{
+    margin-top: 0 !important;
+}
+
+.buy-method .input-group
+{
+    margin-top: 1.6em;
+}
+
+#btn-copy,#btn-pay
+{
+    margin-bottom: -15px;
+}
+
+.buy-method .radio
+{
+    display: inline-block;
+}
