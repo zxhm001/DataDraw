@@ -14,6 +14,8 @@
 
 - [mxGraph](https://github.com/jgraph/mxgraph) 一个使用SVG和HTML来渲染的JavaScript图形绘制库。
 
+- [draw.io](https://github.com/jgraph/drawio) 基于mxGraph库做的制图网站，本站主要使用了他的模板和绘图组件
+
 ## 部署
 
 ### 1. Clone本项目
