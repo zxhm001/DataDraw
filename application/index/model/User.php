@@ -138,6 +138,27 @@ class User extends Model{
 				'date' => date("Y-m-d H:i:s"),
 				'position_absolute' => '/',
 			]);
+			//邀请记录
+			if($inviteid != null)
+			{
+				if(Db::name('users')->where('id',$inviteid)->find() !=null)
+				{
+					$inviteData = [
+						'invite_id'=>$inviteid,
+						'new_id'=>$userId
+					];
+					if (Db::name('invite')->insert($inviteData)) {
+						//邀请记录够了之后换会员,不需要邮件激活的情况
+						if ($regOptions["email_active"] == "0") {
+							$inviteCount = Db::name('invite')->where('invite_id',$inviteid)->count();
+							if ($inviteCount>=5) {
+								$vipgroup = Db::name('groups')->where('group_name','终身会员')->find();
+								Db::name('users')->where('id', $inviteid)->update(['user_group' => $vipgroup['id']]);
+							}
+						}
+					}
+				}
+			}
 			if($regOptions["email_active"] == "1"){
 				$options = Option::getValues(["basic","mail_template"]);
 				$replace = array(
@@ -151,25 +172,6 @@ class User extends Model{
 				$mailObj = new Mail();
 				$mailObj->Send($userName,explode("@",$userName)[0],"【".$options["siteName"]."】"."注册激活",$mailContent);
 				return [true,"ec"];
-			}
-			//邀请记录
-			if($inviteid != null)
-			{
-				if(Db::name('users')->where('id',$inviteid)->find() !=null)
-				{
-					$inviteData = [
-						'invite_id'=>$inviteid,
-						'new_id'=>$userId
-					];
-					if (Db::name('invite')->insert($inviteData)) {
-						//邀请记录够了之后换会员
-						$inviteCount = Db::name('invite')->where('invite_id',$inviteid)->count();
-						if ($inviteCount>=5) {
-							$vipgroup = Db::name('groups')->where('group_name','终身会员')->find();
-							Db::name('users')->where('id', $inviteid)->update(['user_group' => $vipgroup['id']]);
-						}
-					}
-				}
 			}
 			return [true,"注册成功"];
 		}
@@ -186,6 +188,19 @@ class User extends Model{
 				"user_activation_key" => "n",
 				"user_status" => 0,
 			]);
+			$invite = Db::name('invite')->where('new_id',$userData["id"])->find();
+			if($invite != null)
+			{
+				$inviteData = [
+					'is_active'=>1,
+				];
+				Db::name('invite')->where('id',$invite["id"])->update($inviteData);
+				$inviteCount = Db::name('invite')->where('invite_id',$invite['invite_id'])->where('is_active','1')->count();
+				if ($inviteCount>=5) {
+					$vipgroup = Db::name('groups')->where('group_name','终身会员')->find();
+					Db::name('users')->where('id', $invite['invite_id'])->update(['user_group' => $vipgroup['id']]);
+				}
+			}
 			return [1,1];
 		}
 	}

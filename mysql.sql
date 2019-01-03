@@ -355,8 +355,9 @@ CREATE TABLE `sd_invite`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `new_id` int(11) NULL DEFAULT NULL,
   `invite_id` int(11) NULL DEFAULT NULL,
+  `is_active` int(2) UNSIGNED NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM CHARACTER SET = utf8 ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sd_order

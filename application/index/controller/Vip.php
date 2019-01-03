@@ -33,7 +33,13 @@ class Vip extends Controller
 		$userInfo = $this->userObj->getInfo();
 		$policyData = $this->userObj->getPolicy();
 		$groupData =  $this->userObj->getGroupData();
-		$inviteCount = Db::name('invite')->where('invite_id',$userInfo['uid'])->count();
+		$regOptions = Option::getValues(["register"]);
+		if ($regOptions["email_active"] == "0") {
+			$inviteCount = Db::name('invite')->where('invite_id',$userInfo['uid'])->count();
+		}
+		else {
+			$inviteCount = Db::name('invite')->where('invite_id',$userInfo['uid'])->where('is_active','1')->count();
+		}
 		return view('index', [
 			'options'  => Option::getValues(['basic','upload']),
 			'userInfo' => $userInfo,
