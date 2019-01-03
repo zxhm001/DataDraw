@@ -35,7 +35,9 @@ composer install
 
 ### 3. 配置数据和支付参数
 
-将根目录下的mysql.sql到入到你的数据库，编辑application/database_sample.php文件，填写数据库信息，并重命名为database.php，编辑application/config_sample.php文件，主要修改最后部分的支付宝支付和微信支付信息，并重命名为config.php
+将根目录下的mysql.sql到入到你的数据库，编辑application/database_sample.php文件，填写数据库信息，并重命名为database.php，编辑application/config_sample.php文件，主要修改最后部分的支付宝支付和微信支付信息，并重命名为config.php。  
+
+系统中使用的模板数据有点多，单独分了sql文件导出，放在了/static/editor/templates里面，需要使用模板的需要导入这个数据。
 
 ### 4. 目录权限
 
