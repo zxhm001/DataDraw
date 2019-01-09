@@ -3534,16 +3534,9 @@ EditorUi.prototype.save = function(name)
 				var path = "/";
 				var paths = DIRECTORY.split(",");
 				for (let index = 0; index < paths.length; index++) {
-					path += paths[index];
+					path += paths[index] + "/";
 				}
-				if(path != "/")
-				{
-					path +=  "/" + name;
-				}
-				else
-				{
-					path +=  name;
-				}
+				path +=  name;
 				var data = {action: "edit",content: xml,item: path}
 				var that = this;
 				$.ajax({
@@ -3788,16 +3781,9 @@ EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
 	var path = "/";
 	var paths = DIRECTORY.split(",");
 	for (let index = 0; index < paths.length; index++) {
-		path += paths[index];
+		path += paths[index] + "/";
 	}
-	if(path != "/")
-	{
-		path +=  "/" + filename;
-	}
-	else
-	{
-		path +=  filename;
-	}
+	path +=  filename;
 	var data = {image: image,item: path}
 	var that = this;
 	$.ajax({

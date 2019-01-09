@@ -87,6 +87,10 @@ location /youdomain/ {
 - [ ] 实现图形预览与其他云存储的结合
 
 
+## 鸣谢
+
+感谢 [大胃熊](https://gitee.com/athlon128)兄弟指出和修正多级目录的问题
+
 ## 许可证
 
 GPLV3
