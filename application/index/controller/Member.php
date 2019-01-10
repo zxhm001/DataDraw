@@ -39,6 +39,23 @@ class Member extends Controller{
 		}
 	}
 
+	public function ReActive()
+	{
+		if(input('?post.email'))
+		{
+			$regAction = User::ReActive(input('post.email'));
+			if ($regAction[0]){
+				return json(['code' => '200','message' => $regAction[1]]);
+			}else{
+				return json(['code' => '1','message' => $regAction[1]]);
+			}
+		}
+		else
+		{
+			return json(['code' => '1','message' => "发送失败"]);
+		}
+	}
+
 	public function ForgetPwd(){
 		if(input('?post.regEmail')  && !empty(input('post.regEmail'))){
 			$findAction = User::findPwd(input('post.regEmail'),input('post.captchaCode'));

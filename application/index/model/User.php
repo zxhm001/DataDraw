@@ -177,6 +177,34 @@ class User extends Model{
 		}
 	}
 
+	static function ReActive($userEmail)
+	{
+		$userName = str_replace(" ", "", $userEmail);
+		if ( !filter_var($userName,FILTER_VALIDATE_EMAIL) || (mb_strlen($userName,'UTF8')>22) || (mb_strlen($userName,'UTF8')<4)){
+			return [false,"邮箱不符合规范"];
+		}
+		$user = Db::name('users')->where('user_email',$userName)->find();
+		if($user !=null){
+			$regOptions = Option::getValues(["register"]);
+			$options = Option::getValues(["basic","mail_template"]);
+			$replace = array(
+				'{siteTitle}' =>$options["siteName"],
+				'{userName}' =>explode("@",$userName)[0],
+				'{siteUrl}' =>$options["siteURL"],
+				'{siteSecTitle}' =>$options["siteTitle"],
+				'{activationUrl}' =>$options["siteURL"]."Member/emailActivate/".$user['user_activation_key'],
+				);
+			$mailContent = strtr($options["mail_activation_template"],$replace);
+			$mailObj = new Mail();
+			$mailObj->Send($userName,explode("@",$userName)[0],"【".$options["siteName"]."】"."注册激活",$mailContent);
+			return [true,"ec"];
+		}
+		else
+		{
+			return [false,"邮箱不存在"];
+		}
+	}
+
 	static function activicateUser($key){
 		$userData = Db::name('users')
 		->where('user_activation_key','neq','n')

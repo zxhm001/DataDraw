@@ -155,6 +155,19 @@ $("#qqLogin").click(function(){
 	window.location.href="/Member/QQLogin";
 })
 
+$("#reActive").click(function(){
+	var email = $("input[name='username-reg']").val();
+	var rdata = "email=" + email;
+	$.post("/Member/ReActive", rdata, function(data) {
+		if(data.code != "200"){
+			toastr["error"](data.message);
+		}else{
+			toastr["success"]("重新发送成功");
+			switchToEmail();
+		}
+	});
+});
+
 $(document).ready(function(){
 	var url = location.href;
 	var front = url.substr(0,url.lastIndexOf('?'));
