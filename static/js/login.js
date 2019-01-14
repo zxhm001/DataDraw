@@ -69,6 +69,7 @@ function switchToEmail(){
 	$("#emailCheck").show();
 	$("#emailCheck").removeClass("animated zoomIn");
 	$("#emailCheck").addClass("animated zoomIn");
+	$('#mail-span').text($("input[name='username-reg']").val());
 }
 function switchToForget(){
 	changeColor("#FF9800","#F44336");
