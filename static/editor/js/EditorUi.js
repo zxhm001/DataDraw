@@ -3096,7 +3096,17 @@ EditorUi.prototype.createUi = function()
 		}));
 	
 		this.setStatusText(this.editor.getStatus());
+		//返回按钮
+		var that = this;
+		var backBtn = mxUtils.button(mxResources.get('saveAndExit'), function()
+		{
+			that.saveAndExit(false)
+		});
+		backBtn.style.float = 'right';
+		backBtn.style.marginTop = '4px';
+		backBtn.style.marginRight = '4px';
 		this.menubar.container.appendChild(this.statusContainer);
+		this.menubar.container.appendChild(backBtn);
 		
 		// Inserts into DOM
 		this.container.appendChild(this.menubarContainer);

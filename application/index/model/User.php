@@ -97,8 +97,17 @@ class User extends Model{
 		}
 		$userName = str_replace(" ", "", $userEmail);
 		$passWord = $userPass;
-		if ( !filter_var($userName,FILTER_VALIDATE_EMAIL) || (mb_strlen($userName,'UTF8')>22) || (mb_strlen($userName,'UTF8')<4) || (mb_strlen($passWord,'UTF8')>64) || (mb_strlen($passWord,'UTF8')<4)){
-			return [false,"邮箱或密码不符合规范"];
+		if(!filter_var($userName,FILTER_VALIDATE_EMAIL))
+		{
+			return [false,"邮箱格式不符合规范"];
+		}
+		if(mb_strlen($userName,'UTF8')>22 || mb_strlen($userName,'UTF8')<4)
+		{
+			return [false,"邮箱太长或者太短，长度应在4到22个字符之间"];
+		}
+		if(mb_strlen($passWord,'UTF8')>64 || mb_strlen($passWord,'UTF8')<4)
+		{
+			return [false,"密码太长或者太短，长度应在4到64个字符之间"];
 		}
 		if(Db::name('users')->where('user_email',$userName)->find() !=null){
 			return [false,"该邮箱已被注册"];

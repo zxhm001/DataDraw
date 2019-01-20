@@ -101,7 +101,7 @@ CREATE TABLE `sd_files` (
 CREATE TABLE `sd_images`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `file_id` int(11) NOT NULL,
-  `image` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `image` mediumtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 -- --------------------------------------------------------
