@@ -813,7 +813,7 @@
 									
 									if (!this.editorUi.isCorsEnabledForUrl(url))
 									{
-										url = PROXY_URL + '?url=' + encodeURIComponent(url);
+										url = PROXY_URL + '?csurl=' + encodeURIComponent(url);
 									}
 									
 									this.editorUi.loadUrl(url, mxUtils.bind(this, function(data)

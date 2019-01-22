@@ -1010,6 +1010,7 @@ EditorUi.prototype.lightboxVerticalDivider = 4;
  */
 EditorUi.prototype.hsplitClickEnabled = false;
 
+
 /**
  * Installs the listeners to update the action states.
  */
@@ -1065,6 +1066,7 @@ EditorUi.prototype.init = function()
 		this.format.init();
 	}
 };
+
 
 /**
  * Returns true if the given event should start editing. This implementation returns true.
@@ -3564,7 +3566,9 @@ EditorUi.prototype.save = function(name)
 							that.updateDocumentTitle();
 							if(that.exit)
 							{
-								location = "/";
+								setTimeout(function(){
+									location = "/";
+								},200)
 							}
 						}
 						else
@@ -4002,7 +4006,7 @@ EditorUi.prototype.createImageUrlConverter = function()
 			else if (remote && src.substring(0, converter.baseUrl.length) != converter.baseUrl &&
 					(!self.crossOriginImages || !self.isCorsEnabledForUrl(src)))
 			{
-				src = PROXY_URL + '?url=' + encodeURIComponent(src);
+				src = PROXY_URL + '?csurl=' + encodeURIComponent(src);
 			}
 			else if (src.substring(0, 19) != 'chrome-extension://')
 			{
@@ -4282,7 +4286,7 @@ EditorUi.prototype.loadFonts = function(then)
 						
 						if ((/^https?:\/\//.test(realUrl)) && !this.isCorsEnabledForUrl(realUrl))
 						{
-							realUrl = PROXY_URL + '?url=' + encodeURIComponent(url);
+							realUrl = PROXY_URL + '?csurl=' + encodeURIComponent(url);
 						}
 
 						// LATER: Remove cache-control header

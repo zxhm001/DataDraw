@@ -171,7 +171,7 @@ $("#reActive").click(function(){
 
 $(document).ready(function(){
 	var url = location.href;
-	var front = url.substr(0,url.lastIndexOf('?'));
+	var front = url.substr(0,url.lastIndexOf('?') ==-1?url.length:url.lastIndexOf('?'));
 	if (front.endsWith('register')) {
 		switchToReg();
 	}
