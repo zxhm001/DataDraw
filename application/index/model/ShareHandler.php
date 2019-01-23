@@ -180,12 +180,33 @@ class ShareHandler extends Model{
 			$content = base64_decode($matches[2]);
 			header('Content-Type: '.$matches[1]);
 			header('Content-Length: '.strlen($content));
-			echo $content;
+			return $content;
 		}
 		else
 		{
-			return "";
+			return '';
 		}
+	}
+
+	public function GetContent($user)
+	{
+		$checkStatus = $this->checkSession($user);
+		if(!$checkStatus[0]){
+			return [$checkStatus[0],$checkStatus[1]];
+		}
+		$file = Db::name('files')->where('id',$this->shareData["source_name"])->find();
+		if ($file != null) {
+			$filePath = ROOT_PATH . 'public/uploads/' . $file["pre_name"];
+			$fileObj = fopen($filePath,"r");
+			$fileContent = fread($fileObj,filesize($filePath)+1);
+			$this->numIncrease("download_num");
+			return array('result'=>$fileContent);
+		}
+		else
+		{
+			return array('result'=>null);
+		}
+		
 	}
 
 	public function PreviewFolder($user,$path,$folder=false){

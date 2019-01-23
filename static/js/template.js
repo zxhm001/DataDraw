@@ -51,8 +51,9 @@ function createGraph (){
     xhr.onloadend = function() {
         toastr["success"]("图表创建完成");
         xhr = null;
-        path = "/" + name;
-        $.cookie("file_tmp",path);
+        var path = "/" + name;
+        $.cookie("file_tmp",path,{ expires: 7, path: '/' });
+        $.cookie("path_tmp",'',{ expires: 7, path: '/' });
         location = "/editor?libs=" + currentLibs + "&template=" + currentTemplate;
     };
     xhr.open("POST","/Upload",true);

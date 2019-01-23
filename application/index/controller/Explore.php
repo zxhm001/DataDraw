@@ -18,15 +18,12 @@ class Explore extends Controller{
 	}
 
 	public function Search(){
-		$this->visitorObj = new User(cookie('user_id'),cookie('login_key'));
-		return view("search",[
-			"options" => $this->siteOptions,
-			'loginStatus' => $this->visitorObj->loginStatus,
-			'userData' => $this->visitorObj->userSQLData,
-		]);
-	}
-
-	public function S(){
+		// $this->visitorObj = new User(cookie('user_id'),cookie('login_key'));
+		// return view("search",[
+		// 	"options" => $this->siteOptions,
+		// 	'loginStatus' => $this->visitorObj->loginStatus,
+		// 	'userData' => $this->visitorObj->userSQLData,
+		// ]);
 		$this->visitorObj = new User(cookie('user_id'),cookie('login_key'));
 		$keyWords=input("param.key");
 		$encode = mb_detect_encoding($keyWords, array("ASCII","UTF-8","GB2312","GBK","BIG5")); 
@@ -35,13 +32,20 @@ class Explore extends Controller{
 			$keyWords= iconv($encode,"UTF-8",$keyWords);
 		}
 		if(empty($keyWords)){
-			$this->redirect('/Explore/Search',302);
+			$list = Db::name('shares')
+				->where('type',"public")
+				->order('view_num DESC')
+				->paginate(18);
 		}
-		$list = Db::name('shares')
+		else
+		{
+			$list = Db::name('shares')
 				->where('type',"public")
 				->where('origin_name',"like","%".$keyWords."%")
-				->order('share_time DESC')
-				->paginate(10);
+				->order('view_num DESC')
+				->paginate(18);
+		}
+		
 		$listData = $list->all();
 		foreach ($listData as $key => $value) {
 			if($value["source_type"]=="file"){
@@ -60,6 +64,10 @@ class Explore extends Controller{
 			'listOrigin' => $list,
 			'keyWords' => $keyWords,
 		]);
+	}
+
+	public function S(){
+		echo "xx";
 	}
 
 }

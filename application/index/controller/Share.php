@@ -122,7 +122,22 @@ class Share extends Controller{
 	{
 		$shareId = input('param.key');
 		$shareObj = new ShareHandler($shareId,false);
-		$previewHandler = $shareObj->PreviewXml($this->userObj);
+		$content = $shareObj->PreviewXml($this->userObj);
+		if($content == '')
+		{
+			$this->redirect('/static/img/text-xml.png');
+		}
+		else
+		{
+			echo $content;
+		}
+	}
+
+	public function GetShare()
+	{
+		$share_key = input('get.share_key');
+		$shareObj = new ShareHandler($share_key,false);
+		return $shareObj->GetContent($this->userObj);
 	}
 	
 	public function ListFile(){

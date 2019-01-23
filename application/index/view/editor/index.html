@@ -185,6 +185,15 @@
 						window.UI.editor.undoManager.clear();
 					});
 				}
+				if(SHARE != '')
+				{
+					$.get(window.SHARE_URL + '?share_key=' + SHARE,function(response){
+						var doc = mxUtils.parseXml(response.result); 
+						window.UI.editor.setGraphXml(doc.documentElement);
+						window.UI.editor.setModified(false);
+						window.UI.editor.undoManager.clear();
+					});
+				}
 				
 			}, function()
 			{

@@ -17,6 +17,8 @@ window.FILE_PATH = $.cookie('file_tmp') || '';
 window.DIRECTORY = $.cookie('path_tmp') || '';
 window.TEMPLATE = (urlParams['template'] != null && urlParams['template'].length > 0) ? decodeURIComponent(urlParams['template']):'';
 window.TEMPLATE_URL = window.TEMPLATE_URL || '/Template/getTemplate'
+window.SHARE = (urlParams['share_key'] != null && urlParams['share_key'].length > 0) ? decodeURIComponent(urlParams['share_key']):'';
+window.SHARE_URL = window.SHARE_URL || '/Share/getShare'
 window.OPEN_URL = window.OPEN_URL || '/File/ListFile';
 window.RESOURCES_PATH = window.RESOURCES_PATH || '/static/editor/resources';
 window.RESOURCE_BASE = window.RESOURCE_BASE || window.RESOURCES_PATH + '/grapheditor';

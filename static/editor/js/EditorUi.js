@@ -3591,7 +3591,7 @@ EditorUi.prototype.save = function(name)
 				formData.append("name",name);
 				formData.append("chunk",0);
 				formData.append("chunks",1);
-				formData.append("path",$.cookie('path_tmp'));
+				formData.append("path",DIRECTORY);
 				var file = new File([xml],name, {type: "text/xml"});
 				formData.append("file",file);
 				var xhr = new XMLHttpRequest();
