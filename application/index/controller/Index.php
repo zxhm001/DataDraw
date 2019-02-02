@@ -17,9 +17,24 @@ class Index extends Controller{
     		$this->redirect(url('/Home','',''));
     		exit();
     	}
-    	$userInfo = $this->userObj->getInfo();
+		$userInfo = $this->userObj->getInfo();
+		$list = Db::name('shares')
+				->where('type',"public")
+				->order('view_num DESC')
+				->paginate(12);
+		$listData = $list->all();
+		foreach ($listData as $key => $value) {
+			if($value["source_type"]=="file"){
+				$listData[$key]["fileData"] = $value["origin_name"];
+
+			}else{
+				$pathDir = explode("/",$value["source_name"]);
+				$listData[$key]["fileData"] = end($pathDir);
+			}
+		}
     	return view('index', [
-    		'options'  => Option::getValues(['basic']),
+			'options'  => Option::getValues(['basic']),
+			'list' => $listData,
     		'userInfo' => $userInfo,
 		]);
     }

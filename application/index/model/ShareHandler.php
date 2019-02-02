@@ -164,12 +164,8 @@ class ShareHandler extends Model{
 		return $fileObj->PreviewHandler();
 	}
 
-	public function PreviewXml($user)
+	public function PreviewXml()
 	{
-		$checkStatus = $this->checkSession($user);
-		if(!$checkStatus[0]){
-			return [$checkStatus[0],$checkStatus[1]];
-		}
 		$image = Db::name('images')->where('file_id',$this->shareData["source_name"])->find();
 		if($image != null)
 		{

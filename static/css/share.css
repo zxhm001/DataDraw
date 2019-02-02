@@ -187,7 +187,7 @@
 
 .card_body
 {
-	height: 500px;
+	/* height: 500px; */
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex-box;

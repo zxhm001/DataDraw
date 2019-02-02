@@ -1,12 +1,50 @@
-{include file="header" /}
+<!DOCTYPE html>
+<html class="full-height">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="keywords" content="{$options.siteKeywords}" />
+    <meta name="description" content="{$options.siteDes}" />
+    <meta name="theme-color" content="#4e64d9" />
+    <title>{$options.siteName} - {$options.siteTitle}</title>
 
-        <!--Video-->
-        <div class="intro-video view" id="home">
-            
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/static/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap4/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="/static/css/mdb.css" rel="stylesheet">
+    <link href="/static/css/index.css" rel="stylesheet">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
 
-           
-            <div class="hm-gradient">
+</head>
+
+<body class="grey-skin intro-page creative-lp">
+    <header>
+        <nav class="navbar fixed-top navbar-dark navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="static/img/logo_s.png" style="    width: 192px;">
+                </a>
+                <!-- Collapse button -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="basicExampleNav">
+                    <ul class="ml-auto navbar-nav navbar-right">
+                        <li class="nav-item"><a class="nav-link" href="#home">首页</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">服务</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#shares">作品</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="home">
+            <!-- <div class="hm-gradient">
                 <div class="full-bg-img flex-center">
                     <div class="container smooth-scroll">
                         <div class="row">
@@ -16,33 +54,93 @@
                                     <hr class="hr-light">
                                     <h4 class="subtext-header mt-2 mb-2">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN以及云存储</h4>
                                 </div>
-                                <a href="/Login#register" class="btn btn-rounded btn-light-green-2" ><i class="fa fa-paper-plane-o"></i> 注册</a>
-                                <a href="/Home" class="btn btn-rounded btn-light-green-2" ><i class="fa fa-sign-in"></i> 登录</a>
+                                <a href="/Login#register" class="btn btn-rounded btn-light-green-2"><i class="fa fa-paper-plane-o"></i>
+                                    注册</a>
+                                <a href="/Home" class="btn btn-rounded btn-light-green-2"><i class="fa fa-sign-in"></i>
+                                    登录</a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div> -->
+            <div class="jumbotron intro-video">
+                <h1 class="display-4">开始绘制流程图</h1>
+                <p class="lead">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN以及云存储</p>
+                <hr class="my-4">
+                <p class="lead">
+                    <a href="/Login#register" class="btn btn-rounded btn-light-green-2"><i class="fa fa-paper-plane-o"></i>
+                        注册</a>
+                    <a href="/Home" class="btn btn-rounded btn-light-green-2"><i class="fa fa-sign-in"></i>
+                        登录</a>
+                </p>
             </div>
-            <div style="margin:0;position:fixed;left:0;right:0;bottom:0.2rem;text-align: center">
-                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102002950" style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
-                    <img src="/static/img/beian.png" style="float:left;opacity:0.4"/>
-                    <span style="height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:rgba(255, 255, 255, 0.4);">鄂公网安备 42011102002950号</span>
+            <div class="container">
+                <div id="features">
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <img class="rounded-circle img-fluid" src="/static/img/idea.png">
+                        </div>
+                        <div class="col" style="margin-top: 4em;">
+                            <h4 class="card-title">多样制图</h4>
+                            <p class="card-text">使用本站可以画流程图、UML、ER图、网络拓扑图、系统架构图、软件原型图、电路图、甘特图等等一系列工作用图，甚至可以用他画一只小猪佩奇，所有用图一站搞定。</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="margin-top: 4em;">
+                            <h4 class="card-title">云端存储</h4>
+                            <p class="card-text">提供超过1000张专业用图的云存储空间，随时随地，打开网站即可绘制、查看、修改、分享、导出。必要时候用手机打开网站，也可以预览图表，躺在床上也能思考。</p>
+                        </div>
+                        <div class="col" style="text-align: center;">
+                            <img class="rounded-circle img-fluid" src="/static/img/cloud.png">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col" style="text-align: center;">
+                            <img class="rounded-circle img-fluid" src="/static/img/template.png">
+                        </div>
+                        <div class="col" style="margin-top: 4em;">
+                            <h4 class="card-title">丰富模板</h4>
+                            <p class="card-text">提供超过500个专业模板文件可以即开即用，不用从头画起。还可以直接使用其他用户无私分享的优秀作品，四舍五入等于拥有无限多模板，轻松免费完成自己的用图！</p>
+                        </div>
+                    </div>
+                </div>
+                <div id="shares">
+                    <h4 class="card-title">精彩分享</h4>
+                    <div class="row">
+                        {volist name='list' id='shares'}
+                        <div class="col-xs-4 col-md-2 thumbbox">
+                            <a href="/s/{$shares.share_key}" class="thumbnail thumblink">
+                                <span class="thumbspan">
+                                    <img src="/Share/PreviewXml/{$shares.share_key}" alt="{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}">
+                                </span>
+                            </a>
+                            <div class="share-name"><div>{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}</div></div>
+                        </div>
+                        {/volist}
+                    </div>        
+                </div>
+            </div>
+            <div style="margin:0;text-align: center">
+                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102002950"
+                    style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+                    <img src="/static/img/beian.png" style="float:left;opacity:0.8" />
+                    <span style="height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂公网安备
+                        42011102002950号</span>
                 </a>
-                <span style="height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:rgba(255, 255, 255, 0.4);">鄂ICP备14013811号-3</span>
+                <span style="height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂ICP备14013811号-3</span>
             </div>
-        </div>
-        <!--/Video-->
 
+        </div>
     </header>
 
-        <!--/.Content-->
+    <!--/.Content-->
     </div>
-</div>
+    </div>
 
     <!-- JQuery -->
     <script type="text/javascript" src="/static/js/jquery.min.js"></script>
     {$options.js_code}
-    
+
 </body>
 
 </html>

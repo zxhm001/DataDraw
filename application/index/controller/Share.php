@@ -122,7 +122,7 @@ class Share extends Controller{
 	{
 		$shareId = input('param.key');
 		$shareObj = new ShareHandler($shareId,false);
-		$content = $shareObj->PreviewXml($this->userObj);
+		$content = $shareObj->PreviewXml();
 		if($content == '')
 		{
 			$this->redirect('/static/img/text-xml.png');
