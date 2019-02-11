@@ -44,25 +44,6 @@
             </div>
         </nav>
         <div id="home">
-            <!-- <div class="hm-gradient">
-                <div class="full-bg-img flex-center">
-                    <div class="container smooth-scroll">
-                        <div class="row">
-                            <div class="col-md-12 white-text text-center smooth-scroll">
-                                <div class="fadeInDown" data-wow-delay="0.2s">
-                                    <h3 class="brand-name font-bold white-text mb-2">开始绘制流程图</h3>
-                                    <hr class="hr-light">
-                                    <h4 class="subtext-header mt-2 mb-2">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN以及云存储</h4>
-                                </div>
-                                <a href="/Login#register" class="btn btn-rounded btn-light-green-2"><i class="fa fa-paper-plane-o"></i>
-                                    注册</a>
-                                <a href="/Home" class="btn btn-rounded btn-light-green-2"><i class="fa fa-sign-in"></i>
-                                    登录</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
             <div class="jumbotron intro-video">
                 <h1 class="display-4">开始绘制流程图</h1>
                 <p class="lead">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN以及云存储</p>
@@ -77,30 +58,30 @@
             <div class="container">
                 <div id="features">
                     <div class="row">
-                        <div class="col" style="text-align: center;">
-                            <img class="rounded-circle img-fluid" src="/static/img/idea.png">
-                        </div>
-                        <div class="col" style="margin-top: 4em;">
+                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
                             <h4 class="card-title">多样制图</h4>
                             <p class="card-text">使用本站可以画流程图、UML、ER图、网络拓扑图、系统架构图、软件原型图、电路图、甘特图等等一系列工作用图，甚至可以用他画一只小猪佩奇，所有用图一站搞定。</p>
                         </div>
+                        <div class="col-md-6 col-sm-12" style="text-align: center;">
+                            <img class="rounded-circle img-fluid" src="/static/img/idea.png">
+                        </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="margin-top: 4em;">
+                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
                             <h4 class="card-title">云端存储</h4>
                             <p class="card-text">提供超过1000张专业用图的云存储空间，随时随地，打开网站即可绘制、查看、修改、分享、导出。必要时候用手机打开网站，也可以预览图表，躺在床上也能思考。</p>
                         </div>
-                        <div class="col" style="text-align: center;">
+                        <div class="col-md-6 col-sm-12" style="text-align: center;">
                             <img class="rounded-circle img-fluid" src="/static/img/cloud.png">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col" style="text-align: center;">
-                            <img class="rounded-circle img-fluid" src="/static/img/template.png">
-                        </div>
-                        <div class="col" style="margin-top: 4em;">
+                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
                             <h4 class="card-title">丰富模板</h4>
                             <p class="card-text">提供超过500个专业模板文件可以即开即用，不用从头画起。还可以直接使用其他用户无私分享的优秀作品，四舍五入等于拥有无限多模板，轻松免费完成自己的用图！</p>
+                        </div>
+                        <div class="col-md-6 col-sm-12" style="text-align: center;">
+                            <img class="rounded-circle img-fluid" src="/static/img/template.png">
                         </div>
                     </div>
                 </div>
@@ -108,7 +89,7 @@
                     <h4 class="card-title">精彩分享</h4>
                     <div class="row">
                         {volist name='list' id='shares'}
-                        <div class="col-xs-4 col-md-2 thumbbox">
+                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 thumbbox">
                             <a href="/s/{$shares.share_key}" class="thumbnail thumblink">
                                 <span class="thumbspan">
                                     <img src="/Share/PreviewXml/{$shares.share_key}" alt="{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}">

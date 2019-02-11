@@ -25,8 +25,7 @@ class Index extends Controller{
 		$listData = $list->all();
 		foreach ($listData as $key => $value) {
 			if($value["source_type"]=="file"){
-				$listData[$key]["fileData"] = $value["origin_name"];
-
+				$listData[$key]["fileData"] = str_replace('.xml','',$value["origin_name"]);
 			}else{
 				$pathDir = explode("/",$value["source_name"]);
 				$listData[$key]["fileData"] = end($pathDir);
