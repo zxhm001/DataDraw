@@ -167,5 +167,7 @@ header .view {
 }
 
 .intro-video {
-	background-image: url(/static/img/output.jpg);
+	background-image: url(/static/img/index_bg.jpg);
+	background-position-y: -880px;
+	background-position-x: -350px;
 }
