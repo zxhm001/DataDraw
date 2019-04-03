@@ -1,126 +1,255 @@
 <!DOCTYPE html>
-<html class="full-height">
+<html lang="zxx">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="keywords" content="{$options.siteKeywords}" />
-    <meta name="description" content="{$options.siteDes}" />
-    <meta name="theme-color" content="#4e64d9" />
-    <title>{$options.siteName} - {$options.siteTitle}</title>
+	<title>{$options.siteName} - {$options.siteTitle}</title>
+	<!-- Meta tag Keywords -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta charset="UTF-8" />
+	<meta name="keywords" content="" />
+	<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
-    <!-- Font Awesome -->
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+	<!-- //Meta tag Keywords -->
+
+	<!-- Font Awesome -->
     <link rel="stylesheet" href="/static/css/font-awesome.min.css">
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap4/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="/static/css/mdb.css" rel="stylesheet">
-    <link href="/static/css/index.css" rel="stylesheet">
-    <script src="/static/js/jquery.min.js"></script>
-    <script src="/static/js/bootstrap.min.js"></script>
-
+    <link rel="stylesheet" href="/static/css/style.css">
+	<!-- Web-Fonts -->
+	<link href="http://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=devanagari,latin-ext"
+	 rel="stylesheet">
+	<!-- //Web-Fonts -->
 </head>
 
-<body class="grey-skin intro-page creative-lp">
-    <header>
-        <nav class="navbar fixed-top navbar-dark navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="static/img/logo_s.png" style="    width: 192px;">
-                </a>
-                <!-- Collapse button -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="basicExampleNav">
-                    <ul class="ml-auto navbar-nav navbar-right">
-                        <li class="nav-item"><a class="nav-link" href="#home">首页</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#features">服务</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#shares">作品</a></li>
+<body>
+	<!-- main banner -->
+	<div class="main-top" id="home">
+		<!-- header -->
+		<header>
+			<div class="container-fluid">
+				<div class="header d-lg-flex justify-content-between align-items-center py-3 px-sm-3">
+					<!-- logo -->
+					<div id="logo">
+						<h1>
+                            <a class="navbar-brand" href="#">
+                                <img src="static/img/logo_white.png" style="width: 192px;">
+                            </a>
+                        </h1>
+					</div>
+					<!-- //logo -->
+					<!-- nav -->
+					<div class="nav_w3ls">
+						<nav>
+							<label for="drop" class="toggle">菜单</label>
+							<input type="checkbox" id="drop" />
+							<ul class="menu">
+								<li><a href="#home" class="active">首页</a></li>
+								<li><a href="#service">服务</a></li>
+                                <li><a href="#shares">作品</a></li>
+                                <li><a href="#features">特色</a></li>
+                                <li><a href="#thanks">鸣谢</a></li>
+								<li><a href="https://github.com/zxhm001/DataDraw" target="blank">源码</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- //header -->
+
+		<!-- banner -->
+		<div class="banner_w3lspvt position-relative">
+			<div class="container">
+				<div class="d-md-flex">
+					<div class="w3ls_banner_txt">
+						<h3 class="w3ls_pvt-title">绘制<br><span>流程图</span></h3>
+						<p class="text-sty-banner">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN，并存储在云端或者分享给朋友</p>
+						<a href="/Home" class="btn button-style mt-md-5 mt-4">登录</a>
+					</div>
+					<div class="banner-img">
+						<img src="/static/img/banner.png" alt="" class="img-fluid">
+					</div>
+				</div>
+			</div>
+			<!-- animations effects -->
+			<div class="icon-effects-w3l">
+				<img src="/static/img/shape1.png" alt="" class="img-fluid shape-wthree shape-w3-one">
+				<img src="/static/img/shape2.png" alt="" class="img-fluid shape-wthree shape-w3-two">
+				<img src="/static/img/shape3.png" alt="" class="img-fluid shape-wthree shape-w3-three">
+				<img src="/static/img/shape5.png" alt="" class="img-fluid shape-wthree shape-w3-four">
+				<img src="/static/img/shape4.png" alt="" class="img-fluid shape-wthree shape-w3-five">
+				<img src="/static/img/shape6.png" alt="" class="img-fluid shape-wthree shape-w3-six">
+			</div>
+			<!-- //animations effects -->
+		</div>
+		<!-- //banner -->
+	</div>
+	<!-- //main banner -->
+
+	<!-- what we do section -->
+	<div class="what bg-li py-5" id="service">
+		<div class="container py-xl-5 py-lg-3">
+			<div class="row about-bottom-w3l text-center mt-4">
+				<div class="col-lg-4 about-grid">
+					<div class="about-grid-main">
+						<img src="/static/img/flowchart.png" alt="" class="img-fluid">
+						<h4 class="my-4">流程图</h4>
+						<p>流程图是表示算法、工作流或流程的一种框图表示，它以不同类型的框代表不同种类的步骤，每两个步骤之间则以箭头连接</p>
+					</div>
+				</div>
+				<div class="col-lg-4 about-grid my-lg-0 my-5">
+					<div class="about-grid-main">
+						<img src="/static/img/network.png" alt="" class="img-fluid">
+						<h4 class="my-4">拓扑图</h4>
+						<p>拓扑结构图是指由网络节点设备和通信介质构成的网络结构图，定义了各种计算机、打印机、网络设备和其他设备的连接方式</p>
+					</div>
+				</div>
+				<div class="col-lg-4 about-grid">
+					<div class="about-grid-main">
+						<img src="/static/img/uml.png" alt="" class="img-fluid">
+						<h4 class="my-4">UML</h4>
+						<p>UML是一种开放的方法，用于说明、可视化、构建和编写一个正在开发的、面向对象的、软件密集系统的制品的开放方法</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- //what we do section -->
+    
+    <!-- stats -->
+	<section class="bottom-count py-5" id="shares">
+        <div class="container py-xl-5 py-lg-3">
+            <div class="row">
+                {volist name='list' id='shares'}
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 thumbbox">
+                    <a href="/s/{$shares.share_key}" class="thumbnail thumblink">
+                        <span class="thumbspan">
+                            <img src="/Share/PreviewXml/{$shares.share_key}" alt="{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}">
+                        </span>
+                    </a>
+                    <div class="share-name"><div>{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}</div></div>
+                </div>
+                {/volist}
+            </div>
+        </div>
+    </section>
+    <!-- //stats -->
+
+	<!-- services -->
+	<section class="banner-bottom-w3layouts bg-li py-5" id="features">
+		<div class="container py-xl-5 py-lg-3">
+            <h3 class="tittle text-center font-weight-bold">我们的特色</h3>
+            <p class="sub-tittle text-center mt-3 mb-sm-5 mb-4">我们是小项目，我们也是唯一的项目</p>
+			<div class="row pt-lg-4">
+				<div class="col-lg-4 about-in text-center">
+					<div class="card">
+						<div class="card-body">
+							<div class="bg-clr-w3l">
+								<span class="fa fa-yen"></span>
+							</div>
+							<h5 class="card-title mt-4 mb-3">免费</h5>
+							<p class="card-text">本站基本功能完全免费，几乎没有任何限制的使用本站的图形绘制以及云存储功能，可以免费保存上千张工作用图</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 about-in text-center my-lg-0 my-3">
+					<div class="card active">
+						<div class="card-body">
+							<div class="bg-clr-w3l">
+								<span class="fa fa-code-fork"></span>
+							</div>
+							<h5 class="card-title mt-4 mb-3">开源</h5>
+							<p class="card-text">本站使用GPLV3许可开源，在GitHub上有完整的代码和部署文档，所有人都可以查看、修改、重新发行本站的源代码</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 about-in text-center">
+					<div class="card">
+						<div class="card-body">
+							<div class="bg-clr-w3l">
+								<span class="fa fa-share-alt"></span>
+							</div>
+							<h5 class="card-title mt-4 mb-3">开放</h5>
+							<p class="card-text">本站鼓励开放和分享，所有人都可以免费以别人分享的作品为模板二次创作，并将优秀的作品展示在首页以示嘉奖</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- //services -->
+	<!-- middle -->
+	<section class="midd-w3 py-5" id="thanks">
+        <div class="container py-xl-5 py-lg-3">
+            <div class="row">
+                <div class="col-lg-6 about-right-faq">
+                    <h3 class="text-da">鸣谢</h3>
+                    <p class="mt-4">我们使用到了一些开源的项目和组件和免费的素材，对此表示真挚的感谢</p>
+                    <ul class="w3l-right-book mt-4">
+                        <li>mxGraph</li>
+                        <li>Cloudreve</li>
+                        <li>Draw.io</li>
+                        <li>Pixabay</li>
+                        <li>Iconfont</li>
                     </ul>
                 </div>
-            </div>
-        </nav>
-        <div id="home">
-            <div class="jumbotron intro-video">
-                <h1 class="display-4">开始绘制流程图</h1>
-                <p class="lead">只需十秒钟，注册后即可免费绘制流程图、线框图、网络图、UML、BPMN以及云存储</p>
-                <hr class="my-4">
-                <p class="lead">
-                    <a href="/Login#register" class="btn btn-rounded btn-light-green-2"><i class="fa fa-paper-plane-o"></i>
-                        注册</a>
-                    <a href="/Home" class="btn btn-rounded btn-light-green-2"><i class="fa fa-sign-in"></i>
-                        登录</a>
-                </p>
-            </div>
-            <div class="container">
-                <div id="features">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
-                            <h4 class="card-title">多样制图</h4>
-                            <p class="card-text">使用本站可以画流程图、UML、ER图、网络拓扑图、系统架构图、软件原型图、电路图、甘特图等等一系列工作用图，甚至可以用他画一只小猪佩奇，所有用图一站搞定。</p>
-                        </div>
-                        <div class="col-md-6 col-sm-12" style="text-align: center;">
-                            <img class="rounded-circle img-fluid" src="/static/img/idea.png">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
-                            <h4 class="card-title">云端存储</h4>
-                            <p class="card-text">提供超过1000张专业用图的云存储空间，随时随地，打开网站即可绘制、查看、修改、分享、导出。必要时候用手机打开网站，也可以预览图表，躺在床上也能思考。</p>
-                        </div>
-                        <div class="col-md-6 col-sm-12" style="text-align: center;">
-                            <img class="rounded-circle img-fluid" src="/static/img/cloud.png">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12" style="margin-top: 4em;">
-                            <h4 class="card-title">丰富模板</h4>
-                            <p class="card-text">提供超过500个专业模板文件可以即开即用，不用从头画起。还可以直接使用其他用户无私分享的优秀作品，四舍五入等于拥有无限多模板，轻松免费完成自己的用图！</p>
-                        </div>
-                        <div class="col-md-6 col-sm-12" style="text-align: center;">
-                            <img class="rounded-circle img-fluid" src="/static/img/template.png">
-                        </div>
-                    </div>
-                </div>
-                <div id="shares">
-                    <h4 class="card-title">精彩分享</h4>
-                    <div class="row">
-                        {volist name='list' id='shares'}
-                        <div class="col-lg-2 col-md-3 col-sm-4 col-6 thumbbox">
-                            <a href="/s/{$shares.share_key}" class="thumbnail thumblink">
-                                <span class="thumbspan">
-                                    <img src="/Share/PreviewXml/{$shares.share_key}" alt="{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}">
-                                </span>
-                            </a>
-                            <div class="share-name"><div>{$shares.fileData|htmlspecialchars=ENT_NOQUOTES}</div></div>
-                        </div>
-                        {/volist}
-                    </div>        
+                <div class="col-lg-6 left-wthree-img text-right">
+                    <img src="/static/img/thanks.png" alt="" class="img-fluid mt-5" />
                 </div>
             </div>
-            <div style="margin:0;text-align: center">
-                <span style="height:16px;line-height:16px; color:rgba(128, 128, 128, 1);">Copyright © 2016 - 2019 武汉真和民科技有限公司 版权所有</span>
-                <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102002950"
-                    style="display:inline-block;text-decoration:none;height:16px;line-height:16px;">
-                    <img src="/static/img/beian.png" style="float:left;opacity:0.8" />
-                    <span style="height:16px;line-height:26px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂公网安备
-                        42011102002950号</span>
-                </a>
-                <span style="height:26px;line-height:16px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂ICP备14013811号-3</span>
-            </div>
-
         </div>
-    </header>
+    </section>
+    <!-- //middle -->
 
-    <!--/.Content-->
-    </div>
-    </div>
-
-    <!-- JQuery -->
-    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+	<!-- footer -->
+	<footer class="bg-li py-5">
+		<div class="container">
+			<!-- subscribe -->
+			<div class="subscribe mx-auto">
+				<div class="icon-effect-w3">
+					<span class="fa fa-envelope"></span>
+				</div>
+				<h2 class="tittle text-center font-weight-bold">联系我们</h2>
+				<p class="sub-tittle text-center mt-3">如果您对我们的网站有好的建议，请发邮件给我们:<a href=mailto:zxhm001@126.com>zxhm001@126.com</a></p>
+			</div>
+			<!-- //subscribe -->
+		</div>
+	</footer>
+	<!-- //footer -->
+	<!-- copyright bottom -->
+	<div class="copy-bottom bg-li py-4 border-top">
+		<div class="container-fluid">
+			<div class="d-md-flex px-md-3 position-relative text-center">
+				<!-- copyright -->
+				<div class="copy_right mx-md-auto mb-md-0 mb-3">
+					<p class="text-bl let">Copyright © 2016 - 2019 武汉真和民科技有限公司 版权所有
+                        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42011102002950"
+                        style="display:inline-block;text-decoration:none;height:16px;line-height:16px;">
+                        <img src="/static/img/beian.png" style="float:left;opacity:0.8" />
+                        <span style="height:16px;line-height:26px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂公网安备
+                            42011102002950号</span>
+                        </a>
+                        <span style="height:26px;line-height:16px;margin: 0px 0px 0px 5px; color:rgba(128, 128, 128, 1);">鄂ICP备14013811号-3</span>
+					</p>
+				</div>
+				<!-- //copyright -->
+				<!-- move top icon -->
+				<a href="#home" class="move-top text-center">
+					<span class="fa fa-level-up" aria-hidden="true"></span>
+				</a>
+				<!-- //move top icon -->
+			</div>
+		</div>
+	</div>
+    <!-- //copyright bottom -->
     {$options.js_code}
 
 </body>
