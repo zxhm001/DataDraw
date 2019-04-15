@@ -54,7 +54,6 @@ class Graph extends Controller{
             $result = Db::name('images')->where('file_id',$fileID)->setField('image',$imageStr);
             return [true,"上传成功"];
         }
-        
     }
     
     public function Export(){
