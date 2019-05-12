@@ -2,7 +2,10 @@
 namespace app\index\controller;
 
 use \app\index\model\User;
+use \app\index\model\Option;
 use think\Controller;
+use think\Db;
+
 
 class Editor extends Controller{
 	public function _initialize(){
@@ -14,6 +17,14 @@ class Editor extends Controller{
 	}
     
     public function index(){
+		$userInfo = $this->userObj->getInfo();
+		$policyData = $this->userObj->getPolicy();
+
+		return view('index', [
+			'options'  => Option::getValues(['basic','upload']),
+			'userInfo' => $userInfo,
+			'policyData' => $policyData,
+		]);
         return view('index');
     }
 }

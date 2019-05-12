@@ -58,7 +58,7 @@ class Upload extends Controller{
 				"callback" => $uploadObj->ossCallBack,
 				]);
 		}
-		return json(["uptoken" => $uploadObj->getToken()]);
+		return json(["uptoken" => $upToken]);
 	}
 
 	public function chunk(){

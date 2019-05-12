@@ -1726,7 +1726,7 @@ var LinkDialog = function(editorUi, initialValue, btnLabel, fn)
 	linkInput.style.backgroundImage = 'url(\'' + Dialog.prototype.clearImage + '\')';
 	linkInput.style.backgroundRepeat = 'no-repeat';
 	linkInput.style.backgroundPosition = '100% 50%';
-	linkInput.style.paddingRight = '14px';
+	// linkInput.style.paddingRight = '14px';
 	
 	var cross = document.createElement('div');
 	cross.setAttribute('title', mxResources.get('reset'));
@@ -1770,6 +1770,7 @@ var LinkDialog = function(editorUi, initialValue, btnLabel, fn)
 	var btns = document.createElement('div');
 	btns.style.marginTop = '18px';
 	btns.style.textAlign = 'right';
+	btns.style.paddingRight = '14px';
 
 	mxEvent.addListener(linkInput, 'keypress', function(e)
 	{

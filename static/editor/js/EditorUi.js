@@ -3564,12 +3564,7 @@ EditorUi.prototype.save = function(name)
 							that.editor.setModified(false);
 							that.editor.setFilename(name);
 							that.updateDocumentTitle();
-							if(that.exit)
-							{
-								setTimeout(function(){
-									location = "/";
-								},200)
-							}
+							that.uploadImage(name);
 						}
 						else
 						{
@@ -3587,47 +3582,30 @@ EditorUi.prototype.save = function(name)
 			else
 			{
 				//名字不同，调用新建接口
-				var formData = new FormData();
-				formData.append("name",name);
-				formData.append("chunk",0);
-				formData.append("chunks",1);
-				formData.append("path",DIRECTORY);
-				var file = new File([xml],name, {type: "text/xml"});
-				formData.append("file",file);
-				var xhr = new XMLHttpRequest();
+				debugger
+				var xmlUploader = newUploader(window.XML_TOKEN_URL)
 				var that = this;
-				xhr.onerror = function(e) {
-					that.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile')));
-					that.exit = false;
-				};
-				xhr.onloadend = function(response) {
-					var result = JSON.parse(xhr.response);
-					if(result.key != null)
-					{
+				setTimeout(function(){
+					var file = new File([xml],name, {type: "text/xml"});
+					xmlUploader.bind('FileUploaded', function (up, file) {
 						that.editor.setStatus(mxUtils.htmlEntities(mxResources.get('saved')) + ' ' + new Date());
 						that.editor.setModified(false);
 						that.editor.setFilename(name);
 						that.updateDocumentTitle();
-						if(that.exit)
-						{
-							location = "/";
-						}
-					}
-					else
-					{
-						that.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile') + ' ' + result.error));
+						$.cookie('file_tmp',"/" + name); 
+						that.uploadImage(name);
+					});
+					xmlUploader.bind('Error', function (error) {
+						that.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile') + ' ' + error));
 						that.exit = false;
-					}
-					xhr = null;
-				};
-				xhr.open("POST",window.SAVE_URL,true);
-				xhr.send(formData);
+					});
+					xmlUploader.addFile(file);
+				},300);
 			}
 		} catch (error) {
 			this.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile')));
-			that.exit = false;
+			this.exit = false;
 		}
-		this.uploadImage(name);
 	}
 };
 
@@ -3735,6 +3713,31 @@ EditorUi.prototype.base64ToBlob = function(base64Data, contentType)
 	return new Blob(byteArrays, {type: contentType});
 };
 
+EditorUi.prototype.base64ToFile=function(base64Data,contentType ,filename) {
+	contentType = contentType || '';
+	var sliceSize = 1024;
+	var byteCharacters = atob(base64Data);
+	var bytesLength = byteCharacters.length;
+	var slicesCount = Math.ceil(bytesLength / sliceSize);
+	var byteArrays = new Array(slicesCount);
+
+	for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex)
+	{
+		var begin = sliceIndex * sliceSize;
+		var end = Math.min(begin + sliceSize, bytesLength);
+
+		var bytes = new Array(end - begin);
+		
+		for (var offset = begin, i = 0 ; offset < end; ++i, ++offset)
+		{
+			bytes[i] = byteCharacters[offset].charCodeAt(0);
+		}
+		
+		byteArrays[sliceIndex] = new Uint8Array(bytes);
+	}
+	return new File(byteArrays, filename, {type:contentType}); 
+}
+
 /**
  *
  */
@@ -3779,6 +3782,12 @@ EditorUi.prototype.uploadImage = function(filename)
 			}
 			catch (e)
 			{
+				setTimeout(function(){
+					if(that.exit)
+					{
+						location = "/";
+					}
+				},300);
 			}
 		}), null, null, '#ffffff', null, null, true, 1, true,
 			false, null, null, 5, true);
@@ -3786,41 +3795,35 @@ EditorUi.prototype.uploadImage = function(filename)
 	catch (e)
 	{
 		this.handleError(e);
+		setTimeout(function(){
+			if(that.exit)
+			{
+				location = "/";
+			}
+		},300);
 	}
 }
 
 EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
 {
 	var image = this.createImageDataUri(canvas, format);
-	var path = "/";
-	var paths = DIRECTORY.split(",");
-	for (let index = 0; index < paths.length; index++) {
-		path += paths[index] + "/";
-	}
-	path +=  filename;
-	var data = {image: image,item: path}
+    var name = filename.replace(".xml",".png")
+	var imgUploader = newUploader(window.IMG_TOKEN_URL)
 	var that = this;
-	$.ajax({
-		type: 'POST', 
-		url: window.STORE_IMG_URL,
-		data: JSON.stringify(data), 
-		contentType: 'application/json;charset=utf-8',
-		dataType:'json',
-		success: function(response){ 
-			if(response.result.success)
+	setTimeout(function(){
+		var file = that.base64ToFile(image.substring(image.lastIndexOf(',') + 1),"image/png",name);
+		imgUploader.bind('FileUploaded', function (up, file) {
+			if(that.exit)
 			{
-				console.log("创建图像成功");
+				location = "/";
 			}
-			else
-			{
-				console.error("创建图像失败");
-			}
-		} ,
-		error:function(e)
-		{
+			console.log("创建图像成功");
+		});
+		imgUploader.bind('Error', function (up, file) {
 			console.error("创建图像失败");
-		}
-	});
+		});
+		imgUploader.addFile(file);
+	},300);
 }
 
 /**

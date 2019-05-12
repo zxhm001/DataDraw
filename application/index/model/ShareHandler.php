@@ -95,6 +95,17 @@ class ShareHandler extends Model{
 		return $fileObj->getThumb();
 	}
 
+	public function getThumb2()
+	{
+		$fileObj = new FileManage($this->shareData["source_name"],0,true);
+		$imgFileObj = Db::name('files')->where('graph_id',$fileObj->fileData['id'] )->find();
+		if(!empty($imgFileObj))
+		{
+			$fileObj = new FileManage($imgFileObj['id'],0,true);;
+		}
+		return $fileObj->getThumb();
+	}
+
 	public function checkSession($user){
 		if($this->lockStatus){
 			return [false,"会话过期，请刷新页面"];
@@ -164,24 +175,15 @@ class ShareHandler extends Model{
 		return $fileObj->PreviewHandler();
 	}
 
-	public function PreviewXml()
+	public function Preview2()
 	{
-		$image = Db::name('images')->where('file_id',$this->shareData["source_name"])->find();
-		if($image != null)
+		$fileObj = new FileManage($this->shareData["source_name"],0,true);
+		$imgFileObj = Db::name('files')->where('graph_id',$fileObj->fileData['id'] )->find();
+		if(!empty($imgFileObj))
 		{
-			$imageStr = $image['image'];
-			if (!preg_match('/data:([^;]*);base64,(.*)/', $imageStr, $matches)) {
-				echo [false,'获取失败'];
-			}
-			$content = base64_decode($matches[2]);
-			header('Content-Type: '.$matches[1]);
-			header('Content-Length: '.strlen($content));
-			return $content;
+			$fileObj = new FileManage($imgFileObj['id'],0,true);;
 		}
-		else
-		{
-			return '';
-		}
+		return $fileObj->PreviewHandler();
 	}
 
 	public function GetContent($user)

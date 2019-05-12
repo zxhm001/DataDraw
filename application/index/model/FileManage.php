@@ -444,6 +444,12 @@ class FileManage extends Model{
 				OnedriveAdapter::DeleteFile($value,$uniquePolicy["onedrivePolicyData"][$key][0]);
 				self::deleteFileRecord(array_column($value, 'id'),array_sum(array_column($value, 'size')),$value[0]["upload_user"]);
 			}
+			$imgfile = Db::name('files')->where('graph_id',$value[0]['id'])->find();
+			if (!empty($imgfile))
+			{
+				$imgPath = $imgfile['dir'].'/'.$imgfile['orign_name'];
+				self::DeleteHandler([$imgPath],$uid);
+			}
 		}
 		return ["result"=>["success"=>true,"error"=>null]];
 	}
@@ -534,7 +540,7 @@ class FileManage extends Model{
 	 * @param [type] $uid  [description]
 	 */
 	static function ListFile($path,$uid){
-		$fileList = Db::name('files')->where('upload_user',$uid)->where('dir',$path)->select();
+		$fileList = Db::name('files')->where('upload_user',$uid)->where('dir',$path)->where('type','graph')->select();
 		$dirList = Db::name('folders')->where('owner',$uid)->where('position',$path)->select();
 		$count= 0;
 		$fileListData=[];
@@ -661,7 +667,14 @@ class FileManage extends Model{
 		$dir = "/".str_replace(",","/",$jsonData['path']);
 		$fname = $jsonData['fname'];
 		if(self::isExist($dir,$fname,$uid)){
-			return[false,"文件已存在"];
+			if($jsonData['type']=='update')
+			{
+				return [true,"上传成功"];
+			}
+			else
+			{
+				return[false,"文件已存在"];
+			}
 		}
 		$folderBelong = Db::name('folders')->where('owner',$uid)->where('position_absolute',$dir)->find();
 		if($folderBelong ==null){
@@ -677,6 +690,8 @@ class FileManage extends Model{
 			'policy_id' => $policyData['id'],
 			'dir' => $dir,
 			'pic_info' => $picInfo,
+			'type' => $jsonData['type'],
+			'graph_id'=>$jsonData['graphID'],
 		];
 		if(Db::name('files')->insert($sqlData)){
 			return [true,"上传成功"];

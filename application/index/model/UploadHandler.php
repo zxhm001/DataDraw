@@ -236,6 +236,8 @@ class UploadHandler extends Model{
 				"fname" => $info["name"],
 				"objname" => $generatePath."/".$Uploadinfo->getSaveName(),
 				"fsize" => $Uploadinfo->getSize(),
+				"type" => "graph",
+				"graphID"=>0
 			);
 			@list($width, $height, $type, $attr) = getimagesize(rtrim($savePath, DS).DS.$Uploadinfo->getSaveName());
 			$picInfo = empty($width)?" ":$width.",".$height;
@@ -252,7 +254,9 @@ class UploadHandler extends Model{
 					"savePath" =>  $generatePath,
 					"fsize" => $Uploadinfo->getSize(),
 					"picInfo" => $picInfo,
-					"policyId" => $this->policyContent['id']
+					"policyId" => $this->policyContent['id'],
+					"type" => "graph",
+					"graphID"=>0
 				]);
 				$task->userId = $this->userId;
 
@@ -369,7 +373,7 @@ class UploadHandler extends Model{
 		$auth = new Auth($this->policyContent['ak'], $this->policyContent['sk']);
 		$policy = array(
 			'callbackUrl' =>Option::getValue("siteURL").'Callback/Qiniu',
-			'callbackBody' => '{"fname":"$(fname)","objname":"$(key)","fsize":"$(fsize)","callbackkey":"'.$callbackKey.'","path":"$(x:path)","picinfo":"$(imageInfo.width),$(imageInfo.height)"}',
+			'callbackBody' => '{"fname":"$(fname)","objname":"$(key)","fsize":"$(fsize)","callbackkey":"'.$callbackKey.'","type":"graph","graphID":"0","path":"$(x:path)","picinfo":"$(imageInfo.width),$(imageInfo.height)"}',
 			'callbackBodyType' => 'application/json',
 			'fsizeLimit' => (int)$this->policyContent['max_size'],
 		);

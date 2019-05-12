@@ -118,18 +118,15 @@ class Share extends Controller{
 		}
 	}
 
-	public function PreviewXml()
+	public function Preview2()
 	{
 		$shareId = input('param.key');
 		$shareObj = new ShareHandler($shareId,false);
-		$content = $shareObj->PreviewXml();
-		if($content == '')
-		{
+		$Redirect = $shareObj->Preview2();
+		if($Redirect[0]){
+			$this->redirect($Redirect[1],302);
+		}else{
 			$this->redirect('/static/img/text-xml.png');
-		}
-		else
-		{
-			echo $content;
 		}
 	}
 
@@ -166,6 +163,18 @@ class Share extends Controller{
 			$this->redirect($Redirect[1],302);
 		}else{
 			$this->error($Redirect[1],403,$this->siteOptions);
+		}
+	}
+
+	public function Thumb2()
+	{
+		$shareId = input('param.key');
+		$shareObj = new ShareHandler($shareId,false);
+		$Redirect = $shareObj->getThumb2();
+		if($Redirect[0]){
+			$this->redirect($Redirect[1],302);
+		}else{
+			$this->redirect('/static/img/text-xml.png');
 		}
 	}
 

@@ -70,10 +70,22 @@ class File extends Controller{
 	public function Preview(){
 		$reqPath = $_GET["path"];
 		$fileObj = new FileManage($reqPath,$this->userObj->uid);
-		$Redirect = $fileObj->PreviewHandler();
-		if($Redirect[0]){
-			$this->redirect($Redirect[1],302);
+		$fileID = $fileObj->fileData['id'];
+		$fileRecord = Db::name('files')->where('graph_id',$fileID)->find();
+		if (!empty($fileRecord)){
+			$imgFileObj =  new FileManage($fileRecord['id'],$this->userObj->uid,true);
+			$Redirect = $imgFileObj->PreviewHandler();
+			if($Redirect[0]){
+				$this->redirect($Redirect[1],302);
+			}
 		}
+		else{
+			$Redirect = $fileObj->PreviewHandler();
+			if($Redirect[0]){
+				$this->redirect($Redirect[1],302);
+			}
+		}
+		
 	}
 	
 	public function ListPic(){
@@ -129,43 +141,36 @@ class File extends Controller{
 		$this->redirect("http://view.officeapps.live.com/op/view.aspx?src=".urlencode($tmpUrl),302);
 	}
 
-	public function XmlThumb()
-	{
+	public function Thumb(){
 		$filePath = input("get.path");
-		$isxml = input("get.isXml");
-		if(input("get.isXml") != "true"){
-			return "";
+		if(input("get.isImg") == "true"){
+			$fileObj = new FileManage($filePath,$this->userObj->uid);
+			$Redirect = $fileObj->getThumb();
+			if($Redirect[0]){
+				$this->redirect($Redirect[1],302);
+			}	
 		}
-		$fileObj = new FileManage($filePath,$this->userObj->uid);
-		$image = Db::name('images')->where('file_id',$fileObj->fileData['id'])->find();
-		if($image != null)
+		elseif(input("get.isXml") == "true")
 		{
-			$imageStr = $image['image'];
-			if (!preg_match('/data:([^;]*);base64,(.*)/', $imageStr, $matches)) {
-				echo [false,'获取失败'];
+			$fileObj = new FileManage($filePath,$this->userObj->uid);
+			$fileID = $fileObj->fileData['id'];
+			$fileRecord = Db::name('files')->where('graph_id',$fileID)->find();
+			if (!empty($fileRecord)){
+				$imgFileObj =  new FileManage($fileRecord['id'],$this->userObj->uid,true);
+				$Redirect = $imgFileObj->getThumb();
+				if($Redirect[0]){
+					$this->redirect($Redirect[1],302);
+				}
 			}
-			$content = base64_decode($matches[2]);
-			header('Content-Type: '.$matches[1]);
-			header('Content-Length: '.strlen($content));
-			echo $content;
+			else{
+				$this->redirect('/static/img/text-xml.png');
+			}
 		}
 		else
 		{
-			
-			$this->redirect('/static/img/text-xml.png');
-		}
-	}
-
-	public function Thumb(){
-		$filePath = input("get.path");
-		if(input("get.isImg") != "true"){
 			return "";
 		}
-		$fileObj = new FileManage($filePath,$this->userObj->uid);
-		$Redirect = $fileObj->getThumb();
-		if($Redirect[0]){
-			$this->redirect($Redirect[1],302);
-		}
+		
 	}
 
 	public function GoogleDocPreview(){

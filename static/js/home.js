@@ -258,3 +258,13 @@ function mobileBind(){
 function loadThumb(obj){
 	alert("ds");
 }
+
+//加载上传组件
+$.getScript("/static/js/moxie.js").done(function() {
+	$.getScript("/static/js/plupload.dev.js").done(function() {
+		$.getScript("/static/js/qiniu.js").done(function() {
+			$.getScript("/static/js/main.js");
+			toastr.clear();
+		});
+	});
+});
