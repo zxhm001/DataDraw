@@ -22,6 +22,7 @@ class Share extends Controller{
 	public function index(){
 		$shareKey = input('param.key');
 		$shareObj = new ShareHandler($shareKey);
+		$policyData = $this->userObj->getPolicy();
 		if(!$shareObj->querryStatus){
 			 header('HTTP/1.1 404 Not Found');
 			 $this->error('当前分享不存在或者已经失效',404,$this->siteOptions);
@@ -47,6 +48,7 @@ class Share extends Controller{
 					'shareData' => $shareObj->shareData,
 					'loginStatus' => $this->userObj->loginStatus,
 					'userData' => $this->userObj->userSQLData,
+					'policyData' => $policyData,
 					'allowPreview' => Option::getValue("allowdVisitorDownload"),
 				]);
 			}

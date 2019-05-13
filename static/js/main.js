@@ -16,7 +16,6 @@ if (uploadConfig.saveType == "oss" || uploadConfig.saveType == "upyun" || upload
 } else {
     ChunkSize = "4mb";
 }
-
 uploader = Qiniu.uploader({
     runtimes: 'html5,flash,html4',
     browse_button: 'pickfiles',

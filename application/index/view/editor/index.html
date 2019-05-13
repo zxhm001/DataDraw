@@ -164,40 +164,46 @@
 					var filename = FILE_PATH.substring(FILE_PATH.lastIndexOf("/") + 1);
 					window.UI.editor.setFilename(filename);
 					window.UI.updateDocumentTitle();
-					var data = { 'action': 'getContent', 'item': FILE_PATH }
-					$.ajax({
-						type: 'POST',
-						url: window.CONTENT_URL,
-						data: JSON.stringify(data),
-						contentType: 'application/json;charset=utf-8',
-						dataType: 'json',
-						success: function (response) {
-							var doc = mxUtils.parseXml(response.result);
+					if (TEMPLATE != '') {
+						$.get(window.TEMPLATE_URL + '?template_name=' + TEMPLATE, function (response) {
+							var doc = mxUtils.parseXml(response.result.template);
 							window.UI.editor.setGraphXml(doc.documentElement);
 							window.UI.editor.setModified(false);
 							window.UI.editor.undoManager.clear();
-						},
-						error: function (e) {
-							console.error(e);
-						}
-					});
+						});
+					}
+					else if (SHARE != '') {
+						$.get(window.SHARE_URL + '?share_key=' + SHARE, function (response) {
+							debugger
+							var responseObj = JSON.parse(response);
+							var doc = mxUtils.parseXml(responseObj.result);
+							window.UI.editor.setGraphXml(doc.documentElement);
+							window.UI.editor.setModified(false);
+							window.UI.editor.undoManager.clear();
+						});
+					}
+					else
+					{
+						var data = { 'action': 'getContent', 'item': FILE_PATH }
+						$.ajax({
+							type: 'POST',
+							url: window.CONTENT_URL,
+							data: JSON.stringify(data),
+							contentType: 'application/json;charset=utf-8',
+							dataType: 'json',
+							success: function (response) {
+								var doc = mxUtils.parseXml(response.result);
+								window.UI.editor.setGraphXml(doc.documentElement);
+								window.UI.editor.setModified(false);
+								window.UI.editor.undoManager.clear();
+							},
+							error: function (e) {
+								console.error(e);
+							}
+						});
+					}
 				}
-				if (TEMPLATE != '') {
-					$.get(window.TEMPLATE_URL + '?template_name=' + TEMPLATE, function (response) {
-						var doc = mxUtils.parseXml(response.result.template);
-						window.UI.editor.setGraphXml(doc.documentElement);
-						window.UI.editor.setModified(false);
-						window.UI.editor.undoManager.clear();
-					});
-				}
-				if (SHARE != '') {
-					$.get(window.SHARE_URL + '?share_key=' + SHARE, function (response) {
-						var doc = mxUtils.parseXml(response.result);
-						window.UI.editor.setGraphXml(doc.documentElement);
-						window.UI.editor.setModified(false);
-						window.UI.editor.undoManager.clear();
-					});
-				}
+				
 
 			}, function () {
 					document.body.innerHTML = '<center style="margin-top:10%;">Error loading resource files. Please check browser console.</center>';

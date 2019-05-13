@@ -30,6 +30,7 @@ class Template extends Controller
 			'options'  => Option::getValues(['basic','upload']),
 			'userInfo' => $userInfo,
 			'groupData' => $groupData,
+			'policyData' => $policyData,
 			'templateClass'=>$template_classes,
 			'templates'=>$template
 		]);

@@ -4,10 +4,22 @@
 <link rel="stylesheet" href="/static/css/share.css" />
 <link rel="stylesheet" href="/static/css/photoswipe.css">
 <link rel="stylesheet" href="/static/css/default-skin/default-skin.css">
+<script>
+    uploadConfig = {
+        saveType: "{$policyData.policy_type}",
+        maxSize: "{$policyData.max_size}mb",
+        allowSource: "{$policyData.origin_link}",
+        upUrl: "{$policyData.server}",
+
+    };
+</script>
 <script src="/static/js/jquery.color.js"></script>
 </head>
 
 <body data-ma-header="teal">
+    <input style="display:none" type="hidden" id="domain" value="https://www.myshuju.net/">
+    <div style="display:none"  id="pickfiles"></div>
+    <div style="display:none"  id="container"></div>
     <div class="modal fade" id="previewModal" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

@@ -17,7 +17,6 @@
 /*global ActiveXObject */
 /*exported Qiniu */
 /*exported QiniuJsSDK */
-
 function getCookieByString(cookieName) {
 	var start = document.cookie.indexOf(cookieName + '=');
 	if (start == -1) return false;

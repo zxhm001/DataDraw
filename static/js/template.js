@@ -37,27 +37,40 @@ function createGraph (){
     }
     $('#new-graph-modal').modal('hide')
     $('#graph-name-input').val("");
-    var formData = new FormData();
-    formData.append("name",name);
-    formData.append("chunk",0);
-    formData.append("chunks",1);
-    formData.append("path",'');
-    var file = new File([""],name, {type: "text/xml"});
-    formData.append("file",file);
-    var xhr = new XMLHttpRequest();
-    xhr.onerror = function(e) {
-        toastr["error"]("图表创建错误");
-    };
-    xhr.onloadend = function() {
+    var file = new File(['<mxGraphModel dx="1332" dy="851" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169"><root><mxCell id="0"/><mxCell id="1" parent="0"/></root></mxGraphModel>'], name, { type: "text/xml" });
+    uploader.bind('FileUploaded', function (up, file) {
         toastr["success"]("图表创建完成");
         xhr = null;
         var path = "/" + name;
         $.cookie("file_tmp",path,{ expires: 7, path: '/' });
         $.cookie("path_tmp",'',{ expires: 7, path: '/' });
         location = "/editor?libs=" + currentLibs + "&template=" + currentTemplate;
-    };
-    xhr.open("POST","/Upload",true);
-    xhr.send(formData);
+    });
+    uploader.bind('Error', function (up, file) {
+        toastr["error"]("图表创建错误");
+    });
+    uploader.addFile(file);
+    // var formData = new FormData();
+    // formData.append("name",name);
+    // formData.append("chunk",0);
+    // formData.append("chunks",1);
+    // formData.append("path",'');
+    // var file = new File([""],name, {type: "text/xml"});
+    // formData.append("file",file);
+    // var xhr = new XMLHttpRequest();
+    // xhr.onerror = function(e) {
+    //     toastr["error"]("图表创建错误");
+    // };
+    // xhr.onloadend = function() {
+    //     toastr["success"]("图表创建完成");
+    //     xhr = null;
+    //     var path = "/" + name;
+    //     $.cookie("file_tmp",path,{ expires: 7, path: '/' });
+    //     $.cookie("path_tmp",'',{ expires: 7, path: '/' });
+    //     location = "/editor?libs=" + currentLibs + "&template=" + currentTemplate;
+    // };
+    // xhr.open("POST","/Upload",true);
+    // xhr.send(formData);
 }
 
 var isvip = false;
@@ -89,3 +102,13 @@ window.onload = function() {
         }
     });
 }
+
+//加载上传组件
+$.getScript("/static/js/moxie.js", function () {
+    $.getScript("/static/js/plupload.dev.js", function () {
+        $.getScript("/static/js/qiniu.js", function () {
+            $.getScript("/static/js/main.js");
+			toastr.clear();
+        });
+    });
+});

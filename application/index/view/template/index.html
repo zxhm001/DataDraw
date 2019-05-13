@@ -1,6 +1,15 @@
 {extend name="header_home" /}
 {block name="title"}精选模板- {$options.siteName}{/block}
 {block name="content"}
+    <script>
+        uploadConfig = {
+			saveType: "{$policyData.policy_type}",
+			maxSize: "{$policyData.max_size}mb",
+			allowSource: "{$policyData.origin_link}",
+			upUrl: "{$policyData.server}",
+
+		};
+    </script>
     <script src="/static/js/template.js"></script>
     <link rel="stylesheet" href="/static/css/template.css">
     </head>

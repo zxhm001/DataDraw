@@ -192,19 +192,9 @@ class ShareHandler extends Model{
 		if(!$checkStatus[0]){
 			return [$checkStatus[0],$checkStatus[1]];
 		}
-		$file = Db::name('files')->where('id',$this->shareData["source_name"])->find();
-		if ($file != null) {
-			$filePath = ROOT_PATH . 'public/uploads/' . $file["pre_name"];
-			$fileObj = fopen($filePath,"r");
-			$fileContent = fread($fileObj,filesize($filePath)+1);
-			$this->numIncrease("download_num");
-			return array('result'=>$fileContent);
-		}
-		else
-		{
-			return array('result'=>null);
-		}
-		
+
+		$fileObj = new FileManage($this->shareData["source_name"],0,true);
+		return $fileObj->getContent();
 	}
 
 	public function PreviewFolder($user,$path,$folder=false){
