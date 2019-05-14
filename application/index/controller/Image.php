@@ -28,10 +28,9 @@ class Image extends Controller
 	{
 		ob_end_clean();
 		$file = request()->file('file');
-		$item = request()->post('item');
 		$fileInfo = Request::instance()->request();
 		$imageHandler = new ImageHandler($this->userObj->groupData['policy_name'], $this->userObj->uid);
-		return $imageHandler->fileReceive($file, $item, $fileInfo);
+		return $imageHandler->fileReceive($file, $fileInfo);
 	}
 
 	public function Token()

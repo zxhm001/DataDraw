@@ -62,27 +62,6 @@ function createGraph (){
         toastr["error"]("图表创建错误");
     });
     uploader.addFile(file);
-    // var formData = new FormData();
-    // formData.append("name",name);
-    // formData.append("chunk",0);
-    // formData.append("chunks",1);
-    // formData.append("path",'');
-    // var file = new File([""],name, {type: "text/xml"});
-    // formData.append("file",file);
-    // var xhr = new XMLHttpRequest();
-    // xhr.onerror = function(e) {
-    //     toastr["error"]("图表创建错误");
-    // };
-    // xhr.onloadend = function() {
-    //     toastr["success"]("图表创建完成");
-    //     xhr = null;
-    //     var path = "/" + name;
-    //     $.cookie("file_tmp",path,{ expires: 7, path: '/' });
-    //     $.cookie("path_tmp",'',{ expires: 7, path: '/' });
-    //     location = "/editor?share_key=" + shareInfo.shareId;
-    // };
-    // xhr.open("POST","/Upload",true);
-    // xhr.send(formData);
 }
 
 function audioPause() {

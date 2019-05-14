@@ -29,10 +29,10 @@ class ImageHandler extends Model
 	 * @param string $item 图片所属文件地址
 	 * @param Request $info 请求信息
 	 */
-	public function fileReceive($file,$item, $info)
+	public function fileReceive($file, $info)
 	{
 
-		$graphFileObj = new FileManage($item,$this->userId);
+		$graphFileObj = new FileManage($info['item'],$this->userId);
 		$graphFileID = $graphFileObj->fileData['id'];
 
 		$allowedExt = self::getAllowedExt(json_decode($this->policyContent["filetype"], true));
@@ -86,6 +86,12 @@ class ImageHandler extends Model
 				echo json_encode(array("key" => $info["name"]));
 				FileManage::storageCheckOut($this->userId, $jsonData["fsize"], $Uploadinfo->getInfo('size'));
 				return;
+			}
+			$dir = "/".str_replace(",","/",$jsonData['path']);
+			$fname = $jsonData['fname'];
+			if(FileManage::isExist($dir,$fname,$this->userId))
+			{
+				FileManage::DeleteHandler([$dir.$fname],$this->userId);
 			}
 
 			//向数据库中添加文件记录

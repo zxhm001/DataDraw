@@ -3807,11 +3807,20 @@ EditorUi.prototype.uploadImage = function(filename)
 EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
 {
 	var image = this.createImageDataUri(canvas, format);
-    var name = filename.replace(".xml",".png")
+	var name = filename.replace(".xml",".png")
+	var path = "/";
+	var paths = DIRECTORY.split(",");
+	for (let index = 0; index < paths.length; index++) {
+		path += paths[index] + "/";
+	}
+	path +=  filename;
 	var imgUploader = newUploader(window.IMG_TOKEN_URL)
 	var that = this;
 	setTimeout(function(){
 		var file = that.base64ToFile(image.substring(image.lastIndexOf(',') + 1),"image/png",name);
+		imgUploader.bind('BeforeUpload', function (up, file) {
+			imgUploader.setOption("multipart_params",{"item":path,"path":DIRECTORY});
+		});
 		imgUploader.bind('FileUploaded', function (up, file) {
 			if(that.exit)
 			{
