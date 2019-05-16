@@ -132,6 +132,11 @@ curl_setopt($ch, CURLOPT_HTTPHEADER, $request_headers);   // (re-)send headers
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);     // return response
 curl_setopt($ch, CURLOPT_HEADER, true);       // enabled response headers
 // add data for POST, PUT or DELETE requests
+if(strpos($request_url,'https://') == 0)
+{
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); //这个是重点,规避ssl的证书检查。
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE); // 跳过host验证
+}
 if ('POST' == $request_method) {
     $post_data = is_array($request_params) ? http_build_query($request_params) : $request_params;
     curl_setopt($ch, CURLOPT_POST, true);
