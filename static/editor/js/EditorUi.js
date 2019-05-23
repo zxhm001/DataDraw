@@ -3600,7 +3600,7 @@ EditorUi.prototype.save = function(name)
 						that.exit = false;
 					});
 					xmlUploader.addFile(file);
-				},300);
+				},500);
 			}
 		} catch (error) {
 			this.editor.setStatus(mxUtils.htmlEntities(mxResources.get('errorSavingFile')));
@@ -3774,6 +3774,7 @@ EditorUi.prototype.uploadImage = function(filename)
 {
 	try
 	{
+		var that = this;
 		this.exportToCanvas(mxUtils.bind(this, function(canvas)
 		{
 			try
@@ -3818,9 +3819,11 @@ EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
 	var that = this;
 	setTimeout(function(){
 		var file = that.base64ToFile(image.substring(image.lastIndexOf(',') + 1),"image/png",name);
-		imgUploader.bind('BeforeUpload', function (up, file) {
-			imgUploader.setOption("multipart_params",{"item":path,"path":DIRECTORY});
-		});
+		if (uploadConfig.saveType == 'local') {
+			imgUploader.bind('BeforeUpload', function (up, file) {
+				imgUploader.setOption("multipart_params",{"item":path,"path":DIRECTORY});
+			});
+		}
 		imgUploader.bind('FileUploaded', function (up, file) {
 			if(that.exit)
 			{
@@ -3828,11 +3831,15 @@ EditorUi.prototype.uploadCanvas = function(filename,canvas, format)
 			}
 			console.log("创建图像成功");
 		});
-		imgUploader.bind('Error', function (up, file) {
+		imgUploader.bind('Error', function (error) {
+			if(that.exit)
+			{
+				location = "/";
+			}
 			console.error("创建图像失败");
 		});
 		imgUploader.addFile(file);
-	},300);
+	},500);
 }
 
 /**

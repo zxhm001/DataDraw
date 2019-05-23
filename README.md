@@ -81,7 +81,9 @@ location /youdomain/ {
 
 ### 7. 备注
 
-目前文件存储已经可以全面使用Cloudreve的云服务，基本是全面集成Cloudreve，但只测试了七牛云
+1. 目前文件存储已经可以全面使用Cloudreve的云服务，基本是全面集成Cloudreve，但只测试了七牛云
+2. IE不支持File构造函数，所以IE浏览器以及IE内核的浏览器都是没法用的
+
 
 ## 待完善
 
