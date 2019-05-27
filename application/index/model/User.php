@@ -101,9 +101,9 @@ class User extends Model{
 		{
 			return [false,"邮箱格式不符合规范"];
 		}
-		if(mb_strlen($userName,'UTF8')>22 || mb_strlen($userName,'UTF8')<4)
+		if( mb_strlen($userName,'UTF8')<4)
 		{
-			return [false,"邮箱太长或者太短，长度应在4到22个字符之间"];
+			return [false,"邮箱太短，长度应在4到22个字符之间"];
 		}
 		if(mb_strlen($passWord,'UTF8')>64 || mb_strlen($passWord,'UTF8')<4)
 		{
