@@ -978,6 +978,8 @@ mxCellRenderer.prototype.isTextShapeInvalid = function(state, shape)
 {
 	function check(property, stylename, defaultValue)
 	{
+		var result = false;
+		
 		// Workaround for spacing added to directional spacing
 		if (stylename == 'spacingTop' || stylename == 'spacingRight' ||
 			stylename == 'spacingBottom' || stylename == 'spacingLeft')
@@ -1182,7 +1184,7 @@ mxCellRenderer.prototype.rotateLabelBounds = function(state, bounds)
 		if (bounds.x != cx || bounds.y != cy)
 		{
 			var rad = theta * (Math.PI / 180);
-			pt = mxUtils.getRotatedPoint(new mxPoint(bounds.x, bounds.y),
+			var pt = mxUtils.getRotatedPoint(new mxPoint(bounds.x, bounds.y),
 					Math.cos(rad), Math.sin(rad), new mxPoint(cx, cy));
 			
 			bounds.x = pt.x;

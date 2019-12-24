@@ -632,8 +632,7 @@ mxSvgCanvas2D.prototype.addNode = function(filled, stroked)
 		}
 
 		// Adds pointer events
-		if (this.pointerEvents && (node.nodeName != 'path' ||
-			this.path[this.path.length - 1] == this.closeOp))
+		if (this.pointerEvents)
 		{
 			node.setAttribute('pointer-events', this.pointerEventsValue);
 		}
@@ -674,9 +673,10 @@ mxSvgCanvas2D.prototype.updateFill = function()
 	{
 		if (s.gradientColor != null)
 		{
-			var id = this.getSvgGradient(s.fillColor, s.gradientColor, s.gradientFillAlpha, s.gradientAlpha, s.gradientDirection);
+			var id = this.getSvgGradient(String(s.fillColor), String(s.gradientColor),
+				s.gradientFillAlpha, s.gradientAlpha, s.gradientDirection);
 			
-			if (!mxClient.IS_CHROME_APP && !mxClient.IS_IE && !mxClient.IS_IE11 &&
+			if (!mxClient.IS_CHROMEAPP && !mxClient.IS_IE && !mxClient.IS_IE11 &&
 				!mxClient.IS_EDGE && this.root.ownerDocument == document)
 			{
 				// Workaround for potential base tag and brackets must be escaped
@@ -690,7 +690,7 @@ mxSvgCanvas2D.prototype.updateFill = function()
 		}
 		else
 		{
-			this.node.setAttribute('fill', s.fillColor.toLowerCase());
+			this.node.setAttribute('fill', String(s.fillColor).toLowerCase());
 		}
 	}
 };
@@ -714,7 +714,7 @@ mxSvgCanvas2D.prototype.updateStroke = function()
 {
 	var s = this.state;
 
-	this.node.setAttribute('stroke', s.strokeColor.toLowerCase());
+	this.node.setAttribute('stroke', String(s.strokeColor).toLowerCase());
 	
 	if (s.alpha < 1 || s.strokeAlpha < 1)
 	{
@@ -1000,8 +1000,8 @@ mxSvgCanvas2D.prototype.ellipse = function(x, y, w, h)
 	var s = this.state;
 	var n = this.createElement('ellipse');
 	// No rounding for consistent output with 1.x
-	n.setAttribute('cx', Math.round((x + w / 2 + s.dx) * s.scale));
-	n.setAttribute('cy', Math.round((y + h / 2 + s.dy) * s.scale));
+	n.setAttribute('cx', this.format((x + w / 2 + s.dx) * s.scale));
+	n.setAttribute('cy', this.format((y + h / 2 + s.dy) * s.scale));
 	n.setAttribute('rx', w / 2 * s.scale);
 	n.setAttribute('ry', h / 2 * s.scale);
 	this.node = n;
@@ -1177,7 +1177,7 @@ mxSvgCanvas2D.prototype.convertHtml = function(val)
  * 
  * Private helper function to create SVG elements
  */
-mxSvgCanvas2D.prototype.createDiv = function(str, align, valign, style, overflow)
+mxSvgCanvas2D.prototype.createDiv = function(str, align, valign, style, overflow, whiteSpace)
 {
 	var s = this.state;
 
@@ -1211,17 +1211,21 @@ mxSvgCanvas2D.prototype.createDiv = function(str, align, valign, style, overflow
 	{
 		style += 'text-align:right;';
 	}
+	else
+	{
+		style += 'text-align:left;';
+	}
 
 	var css = '';
 	
 	if (s.fontBackgroundColor != null)
 	{
-		css += 'background-color:' + s.fontBackgroundColor + ';';
+		css += 'background-color:' + mxUtils.htmlEntities(s.fontBackgroundColor) + ';';
 	}
 	
 	if (s.fontBorderColor != null)
 	{
-		css += 'border:1px solid ' + s.fontBorderColor + ';';
+		css += 'border:1px solid ' + mxUtils.htmlEntities(s.fontBorderColor) + ';';
 	}
 	
 	var val = str;
@@ -1232,6 +1236,13 @@ mxSvgCanvas2D.prototype.createDiv = function(str, align, valign, style, overflow
 		
 		if (overflow != 'fill' && overflow != 'width')
 		{
+			// Workaround for no wrapping in HTML canvas for image
+			// export if the inner HTML contains a DIV with width
+			if (whiteSpace != null)
+			{
+				css += 'white-space:' + whiteSpace + ';';
+			}
+			
 			// Inner div always needed to measure wrapped text
 			val = '<div xmlns="http://www.w3.org/1999/xhtml" style="display:inline-block;text-align:inherit;text-decoration:inherit;' + css + '">' + val + '</div>';
 		}
@@ -1516,9 +1527,9 @@ mxSvgCanvas2D.prototype.text = function(x, y, w, h, str, align, valign, wrap, fo
 
 			var fo = this.createElement('foreignObject');
 			fo.setAttribute('style', 'overflow:visible;');
-			fo.setAttribute('pointer-events', 'all');
+			fo.setAttribute('pointer-events', (this.pointerEvents) ? this.pointerEventsValue : 'none');
 			
-			var div = this.createDiv(str, align, valign, style, overflow);
+			var div = this.createDiv(str, align, valign, style, overflow, (wrap && w > 0) ? 'normal' : null);
 			
 			// Ignores invalid XHTML labels
 			if (div == null)
@@ -1912,7 +1923,7 @@ mxSvgCanvas2D.prototype.plainText = function(x, y, w, h, str, align, valign, wra
 			this.root.appendChild(c);
 		}
 		
-		if (!mxClient.IS_CHROME_APP && !mxClient.IS_IE && !mxClient.IS_IE11 &&
+		if (!mxClient.IS_CHROMEAPP && !mxClient.IS_IE && !mxClient.IS_IE11 &&
 			!mxClient.IS_EDGE && this.root.ownerDocument == document)
 		{
 			// Workaround for potential base tag

@@ -1,6 +1,6 @@
 /**
- * Copyright (c) 2006-2015, JGraph Ltd
- * Copyright (c) 2006-2015, Gaudenz Alder
+ * Copyright (c) 2006-2019, JGraph Ltd
+ * Copyright (c) 2006-2019, draw.io AG
  */
 /**
  * Class: mxEditor
@@ -437,7 +437,7 @@ mxEditor.prototype.lastSavedResource = (mxClient.language != 'none') ? 'lastSave
  * 
  * Specifies the resource key for the current file info. If the resource for
  * this key does not exist then the value is used as the error message.
- * Default is 'lastSaved'.
+ * Default is 'currentFile'.
  */
 mxEditor.prototype.currentFileResource = (mxClient.language != 'none') ? 'currentFile' : '';
 	
@@ -560,7 +560,7 @@ mxEditor.prototype.actions = null;
  * Variable: dblClickAction
  *
  * Specifies the name of the action to be executed
- * when a cell is double clicked. Default is edit.
+ * when a cell is double clicked. Default is 'edit'.
  * 
  * To handle a singleclick, use the following code.
  * 
@@ -655,7 +655,7 @@ mxEditor.prototype.defaultEdgeStyle = null;
 mxEditor.prototype.defaultGroup = null;
 
 /**
- * Variable: graphRenderHint
+ * Variable: groupBorderSize
  *
  * Default size for the border of new groups. If null,
  * then then <mxGraph.gridSize> is used. Default is
@@ -686,7 +686,7 @@ mxEditor.prototype.linefeed = '&#xa;';
  * Variable: postParameterName
  *
  * Specifies if the name of the post parameter that contains the diagram
- * data in a post request to the server. Default is xml.
+ * data in a post request to the server. Default is 'xml'.
  */
 mxEditor.prototype.postParameterName = 'xml';
 
@@ -804,7 +804,7 @@ mxEditor.prototype.cycleAttributeIndex = 0;
  * Variable: cycleAttributeName
  * 
  * Name of the attribute to be assigned a <cycleAttributeValues>
- * when inserting new swimlanes. Default is fillColor.
+ * when inserting new swimlanes. Default is 'fillColor'.
  */
 mxEditor.prototype.cycleAttributeName = 'fillColor';
 
@@ -867,9 +867,9 @@ mxEditor.prototype.urlHelp = null;
 mxEditor.prototype.helpWidth = 300;
 	
 /**
- * Variable: helpWidth
+ * Variable: helpHeight
  * 
- * Specifies the width of the help window in pixels.
+ * Specifies the height of the help window in pixels.
  * Default is 260.
  */
 mxEditor.prototype.helpHeight = 260;

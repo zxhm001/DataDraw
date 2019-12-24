@@ -252,6 +252,15 @@ mxCellEditor.prototype.blurEnabled = false;
 mxCellEditor.prototype.initialValue = null;
 
 /**
+ * Variable: align
+ * 
+ * Holds the current temporary horizontal alignment for the cell style. If this
+ * is modified then the current text alignment is changed and the cell style is
+ * updated when the value is applied.
+ */
+mxCellEditor.prototype.align = null;
+
+/**
  * Function: init
  *
  * Creates the <textarea> and installs the event listeners. The key handler
@@ -281,6 +290,22 @@ mxCellEditor.prototype.init = function ()
 mxCellEditor.prototype.applyValue = function(state, value)
 {
 	this.graph.labelChanged(state.cell, value, this.trigger);
+};
+
+/**
+ * Function: setAlign
+ * 
+ * Sets the temporary horizontal alignment for the current editing session.
+ */
+mxCellEditor.prototype.setAlign = function (align)
+{
+	if (this.textarea != null)
+	{
+		this.textarea.style.textAlign = align;
+	}
+	
+	this.align = align;
+	this.resize();
 };
 
 /**
@@ -330,6 +355,14 @@ mxCellEditor.prototype.isCancelEditingKeyEvent = function(evt)
  */
 mxCellEditor.prototype.installListeners = function(elt)
 {
+	// Applies value if text is dragged
+	// LATER: Gesture mouse events ignored for starting move
+	mxEvent.addListener(elt, 'dragstart', mxUtils.bind(this, function(evt)
+	{
+		this.graph.stopEditing(false);
+		mxEvent.consume(evt);
+	}));
+
 	// Applies value if focus is lost
 	mxEvent.addListener(elt, 'blur', mxUtils.bind(this, function(evt)
 	{
@@ -424,6 +457,7 @@ mxCellEditor.prototype.installListeners = function(elt)
 	});
 	
 	mxEvent.addListener(elt, evtName, resizeHandler);
+	mxEvent.addListener(window, 'resize', resizeHandler);
 
 	if (document.documentMode >= 9)
 	{
@@ -524,11 +558,11 @@ mxCellEditor.prototype.resize = function()
 		else
 	 	{
 	 		var lw = mxUtils.getValue(state.style, mxConstants.STYLE_LABEL_WIDTH, null);
-			m = (state.text != null) ? state.text.margin : null;
+			m = (state.text != null && this.align == null) ? state.text.margin : null;
 			
 			if (m == null)
 			{
-				m = mxUtils.getAlignmentAsPoint(mxUtils.getValue(state.style, mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER),
+				m = mxUtils.getAlignmentAsPoint(this.align || mxUtils.getValue(state.style, mxConstants.STYLE_ALIGN, mxConstants.ALIGN_CENTER),
 						mxUtils.getValue(state.style, mxConstants.STYLE_VERTICAL_ALIGN, mxConstants.ALIGN_MIDDLE));
 			}
 			
@@ -730,6 +764,7 @@ mxCellEditor.prototype.isLegacyEditor = function()
 mxCellEditor.prototype.startEditing = function(cell, trigger)
 {
 	this.stopEditing(true);
+	this.align = null;
 	
 	// Creates new textarea instance
 	if (this.textarea == null)
@@ -929,21 +964,35 @@ mxCellEditor.prototype.stopEditing = function(cancel)
 			this.textarea.innerHTML = '';
 			this.clearOnChange = false;
 		}
-		
-		if (state != null && this.textarea.innerHTML != initial)
+
+		if (state != null && (this.textarea.innerHTML != initial || this.align != null))
 		{
 			this.prepareTextarea();
 			var value = this.getCurrentValue(state);
 			
-			if (value != null)
+			this.graph.getModel().beginUpdate();
+			try
 			{
-				this.applyValue(state, value);
+				if (value != null)
+				{
+					this.applyValue(state, value);
+				}
+				
+				if (this.align != null)
+				{
+					this.graph.setCellStyles(mxConstants.STYLE_ALIGN, this.align, [state.cell]);
+				}
+			}
+			finally
+			{
+				this.graph.getModel().endUpdate();
 			}
 		}
 		
 		// Forces new instance on next edit for undo history reset
 		mxEvent.release(this.textarea);
 		this.textarea = null;
+		this.align = null;
 	}
 };
 
@@ -955,7 +1004,7 @@ mxCellEditor.prototype.stopEditing = function(cancel)
  */
 mxCellEditor.prototype.prepareTextarea = function()
 {
-	if (mxClient.IS_FF && this.textarea.lastChild != null &&
+	if (this.textarea.lastChild != null &&
 		this.textarea.lastChild.nodeName == 'BR')
 	{
 		this.textarea.removeChild(this.textarea.lastChild);
